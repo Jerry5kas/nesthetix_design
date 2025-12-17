@@ -338,5 +338,8 @@
             window.NesthetixAnimations = new NesthetixAnimations();
         })();
     </script>
+
+    {{-- Global Consultation Form Lightbox --}}
+    <x-consultation-form />
 </body>
 </html>

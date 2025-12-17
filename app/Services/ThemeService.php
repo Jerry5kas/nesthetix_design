@@ -114,16 +114,29 @@ class ThemeService
     {
         $settings = ThemeSetting::getAllAsArray();
         
-        $fonts = [
-            $settings['font_primary'] ?? 'Montserrat',
-            $settings['font_secondary'] ?? 'Poppins',
-            $settings['font_fancy'] ?? 'Tangerine',
-        ];
+        $fontPrimary = $settings['font_primary'] ?? 'Montserrat';
+        $fontSecondary = $settings['font_secondary'] ?? 'Poppins';
+        $fontFancy = $settings['font_fancy'] ?? 'Tangerine';
 
-        $fontParams = array_map(function ($font) {
-            $fontName = str_replace(' ', '+', $font);
-            return "family={$fontName}:wght@300;400;500;600;700";
-        }, array_unique($fonts));
+        // Build font params - different fonts have different available weights
+        $fontParams = [];
+        
+        // Primary font (body) - full weight range
+        $fontParams[] = 'family=' . str_replace(' ', '+', $fontPrimary) . ':wght@300;400;500;600;700';
+        
+        // Secondary font (headings) - full weight range
+        if ($fontSecondary !== $fontPrimary) {
+            $fontParams[] = 'family=' . str_replace(' ', '+', $fontSecondary) . ':wght@300;400;500;600;700';
+        }
+        
+        // Fancy font (decorative) - Tangerine only has 400 and 700
+        if ($fontFancy !== $fontPrimary && $fontFancy !== $fontSecondary) {
+            if (strtolower($fontFancy) === 'tangerine') {
+                $fontParams[] = 'family=' . str_replace(' ', '+', $fontFancy) . ':wght@400;700';
+            } else {
+                $fontParams[] = 'family=' . str_replace(' ', '+', $fontFancy) . ':wght@400;700';
+            }
+        }
 
         return 'https://fonts.googleapis.com/css2?' . implode('&', $fontParams) . '&display=swap';
     }

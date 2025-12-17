@@ -64,13 +64,13 @@
 
                 {{-- CTA Buttons --}}
                 <div class="flex flex-col sm:flex-row gap-4 sm:gap-6" data-animate="fade-up" data-delay="0.6">
-                    {{-- Primary CTA - Cream/Gold with elegant hover --}}
-                    <a href="#consultation" class="hero-btn-primary group inline-flex items-center justify-center gap-3 px-8 py-4 font-medium tracking-wide transition-all duration-500" data-magnetic>
+                    {{-- Primary CTA - Opens Consultation Lightbox --}}
+                    <button type="button" class="hero-btn-primary group inline-flex items-center justify-center gap-3 px-8 py-4 font-medium tracking-wide transition-all duration-500" data-magnetic data-consultation-trigger>
                         <span>Get a Free Consultation</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
-                                </a>
+                        </svg>
+                    </button>
                     {{-- Secondary CTA - Outline with fill hover --}}
                     <a href="#portfolio" class="hero-btn-secondary group inline-flex items-center justify-center gap-3 px-8 py-4 font-medium tracking-wide transition-all duration-500" data-magnetic>
                         <span>View Our Work</span>

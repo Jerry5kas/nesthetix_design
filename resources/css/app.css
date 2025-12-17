@@ -84,6 +84,44 @@
 .font-body { font-family: var(--font-primary); }
 
 /* ============================================
+   GLOBAL TYPOGRAPHY - Font Assignments
+   Poppins for Headings, Montserrat for Body, Tangerine for Decorative
+   ============================================ */
+
+/* Base body font */
+body {
+    font-family: var(--font-primary); /* Montserrat */
+}
+
+/* Headings - Use Poppins */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-secondary); /* Poppins */
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Specific heading sizes */
+h1, .h1 { font-size: 2.5rem; }
+h2, .h2 { font-size: 2rem; }
+h3, .h3 { font-size: 1.75rem; }
+h4, .h4 { font-size: 1.5rem; }
+h5, .h5 { font-size: 1.25rem; }
+h6, .h6 { font-size: 1rem; }
+
+/* Fancy/Decorative text - Use Tangerine */
+.text-fancy,
+.font-fancy {
+    font-family: var(--font-fancy); /* Tangerine */
+    font-weight: 700;
+}
+
+/* Paragraph and body text */
+p, span, a, li, td, th, label, input, textarea, select, button {
+    font-family: var(--font-primary); /* Montserrat */
+}
+
+/* ============================================
    ADMIN LAYOUT STYLES - Clean White Theme
    ============================================ */
 .admin-body {
