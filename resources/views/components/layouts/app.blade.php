@@ -1,15 +1,14 @@
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? $theme['settings']['site_name'] ?? 'Nesthetix' }}</title>
     
-    <!-- Dynamic Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="{{ $googleFontsUrl ?? 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Tangerine:wght@400;700&display=swap' }}" rel="stylesheet">
+    <!-- Font Preconnect for optimal loading -->
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
     
     <!-- GSAP Animation Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -17,6 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
     <!-- Lenis Smooth Scroll -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
@@ -25,8 +26,18 @@
         :root {
             {{ $themeStyles ?? '' }};
         }
+        /* Critical: Luxury Editorial Pairing - Canela Text (Headings) + Satoshi (Body) */
+        html, body {
+            font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Canela Text Trial', Georgia, 'Times New Roman', serif !important;
+        }
+        .font-fancy, .text-fancy {
+            font-family: 'Canela Text Trial', Georgia, 'Times New Roman', serif !important;
+        }
     </style>
-</head>
+  </head>
 <body class="font-body min-h-screen flex flex-col" style="background-color: var(--color-background-light); color: var(--color-primary);" data-lenis-prevent>
     
     {{-- Include Navbar Partial --}}
@@ -341,5 +352,5 @@
 
     {{-- Global Consultation Form Lightbox --}}
     <x-consultation-form />
-</body>
+  </body>
 </html>

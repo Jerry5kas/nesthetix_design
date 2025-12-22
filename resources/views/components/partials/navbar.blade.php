@@ -1,5 +1,5 @@
 {{-- Top Header Bar - Secondary Color Background --}}
-<div class="top-header transition-all duration-300" id="topHeader" style="background-color: var(--color-secondary);">
+<div class="top-header transition-all duration-300 font-bold" id="topHeader" style="background-color: var(--color-secondary);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-10 text-xs" style="color: var(--color-text);">
             {{-- Left: Location --}}
@@ -62,7 +62,7 @@
 <nav class="main-navbar sticky top-0 z-50 transition-all duration-300 bg-white border-b border-gray-100 shadow-sm" id="mainNavbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 lg:h-24">
-            {{-- Logo --}}
+            {{-- Left: Logo --}}
             <a href="{{ url('/') }}" class="flex items-center gap-3 flex-shrink-0">
                 @if(!empty($theme['branding']['logo_primary_url']))
                     {{-- Use Primary Logo (dark logo for light navbar) --}}
@@ -87,39 +87,26 @@
                 @endif
             </a>
 
-            {{-- Desktop Navigation --}}
-            <div class="hidden lg:flex items-center gap-8">
-                <a href="{{ url('/') }}" class="nav-link-light {{ request()->is('/') ? 'active' : '' }}">
-                    Home
-                </a>
-                <a href="#services" class="nav-link-light">
-                    Services
-                </a>
-                <a href="#portfolio" class="nav-link-light">
-                    Portfolio
-                </a>
-                <a href="#about" class="nav-link-light">
-                    About
-                </a>
-                <a href="#contact" class="nav-link-light">
-                    Contact
-                </a>
-            </div>
-
-            {{-- Right Side: CTA & Mobile Menu --}}
-            <div class="flex items-center gap-4">
-                {{-- Auth/CTA Button --}}
-                @guest
-                    <a href="{{ route('login') }}" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium transition-colors" style="color: var(--color-text-muted);">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        Login
+            {{-- Right: Desktop Navigation & Mobile Menu Toggle --}}
+            <div class="flex items-center gap-8">
+                {{-- Desktop Navigation --}}
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="{{ url('/') }}" class="nav-link-light {{ request()->is('/') ? 'active' : '' }}">
+                        Home
                     </a>
-                    <a href="{{ route('register') }}" class="btn btn-primary">
-                        Get Started
+                    <a href="#services" class="nav-link-light">
+                        Services
                     </a>
-                @endguest
+                    <a href="#portfolio" class="nav-link-light">
+                        Portfolio
+                    </a>
+                    <a href="#about" class="nav-link-light">
+                        About
+                    </a>
+                    <a href="#contact" class="nav-link-light">
+                        Contact
+                    </a>
+                </div>
 
                 {{-- Mobile Menu Toggle --}}
                 <button type="button" class="lg:hidden p-2 rounded-lg transition-all hover:bg-gray-100" id="mobileMenuToggle" aria-label="Toggle menu" style="color: var(--color-primary);">
@@ -167,18 +154,6 @@
                 </svg>
                 Contact
             </a>
-            
-            {{-- Mobile Auth Links --}}
-            @guest
-            <div class="pt-4 mt-4 border-t border-gray-100">
-                <a href="{{ route('login') }}" class="mobile-nav-link-light">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                    </svg>
-                    Login
-                </a>
-            </div>
-            @endguest
         </div>
     </div>
 </nav>

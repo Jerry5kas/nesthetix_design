@@ -37,18 +37,7 @@ class ThemeService
             }
         }
 
-        // Font variables
-        $fontMappings = [
-            'font_primary' => '--font-primary',
-            'font_secondary' => '--font-secondary',
-            'font_fancy' => '--font-fancy',
-        ];
-
-        foreach ($fontMappings as $key => $cssVar) {
-            if (isset($settings[$key])) {
-                $cssVars[] = "{$cssVar}: '{$settings[$key]}', sans-serif";
-            }
-        }
+        // Font variables removed - Montserrat is hardcoded in CSS
 
         // Size variables
         $sizeMappings = [
@@ -108,37 +97,15 @@ class ThemeService
     }
 
     /**
-     * Get Google Fonts URL
+     * Get Fonts URL
+     * Luxury Editorial Pairing: Canela (Headings) + Satoshi (Body)
      */
     public function getGoogleFontsUrl(): string
     {
-        $settings = ThemeSetting::getAllAsArray();
-        
-        $fontPrimary = $settings['font_primary'] ?? 'Montserrat';
-        $fontSecondary = $settings['font_secondary'] ?? 'Poppins';
-        $fontFancy = $settings['font_fancy'] ?? 'Tangerine';
-
-        // Build font params - different fonts have different available weights
-        $fontParams = [];
-        
-        // Primary font (body) - full weight range
-        $fontParams[] = 'family=' . str_replace(' ', '+', $fontPrimary) . ':wght@300;400;500;600;700';
-        
-        // Secondary font (headings) - full weight range
-        if ($fontSecondary !== $fontPrimary) {
-            $fontParams[] = 'family=' . str_replace(' ', '+', $fontSecondary) . ':wght@300;400;500;600;700';
-        }
-        
-        // Fancy font (decorative) - Tangerine only has 400 and 700
-        if ($fontFancy !== $fontPrimary && $fontFancy !== $fontSecondary) {
-            if (strtolower($fontFancy) === 'tangerine') {
-                $fontParams[] = 'family=' . str_replace(' ', '+', $fontFancy) . ':wght@400;700';
-            } else {
-                $fontParams[] = 'family=' . str_replace(' ', '+', $fontFancy) . ':wght@400;700';
-            }
-        }
-
-        return 'https://fonts.googleapis.com/css2?' . implode('&', $fontParams) . '&display=swap';
+        // Satoshi is loaded via Fontshare CDN in CSS
+        // Canela is self-hosted via @font-face declarations
+        // Return empty string as fonts are loaded directly in CSS
+        return '';
     }
 }
 
