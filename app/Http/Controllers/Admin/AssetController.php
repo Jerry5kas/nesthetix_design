@@ -33,13 +33,11 @@ class AssetController extends Controller
         }
 
         // Filter by active status if provided
-        if ($request->has('active')) {
+        if ($request->has('active') && $request->active !== '') {
             $isActive = filter_var($request->active, FILTER_VALIDATE_BOOLEAN);
             $query->where('is_active', $isActive);
-        } else {
-            // Default to active only
-            $query->active();
         }
+        // If no active filter, show all assets
 
         // Search by title
         if ($request->has('search') && $request->search) {
@@ -62,15 +60,53 @@ class AssetController extends Controller
     }
 
     /**
+     * Show the form for creating a new asset.
+     */
+    public function create(): View
+    {
+        $types = Asset::getTypes();
+        return view('admin.assets.create', compact('types'));
+    }
+
+    /**
      * Store a newly uploaded asset.
      */
     public function store(Request $request): JsonResponse|RedirectResponse
     {
         $request->validate([
-            'file' => 'required|file|max:51200', // 50MB max
+            'file' => [
+                'required',
+                'file',
+                'max:51200', // 50MB max
+                function ($attribute, $value, $fail) {
+                    if ($value) {
+                        $mimeType = $value->getMimeType();
+                        $allowedMimes = [
+                            // Images
+                            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml',
+                            // Videos
+                            'video/mp4', 'video/mpeg', 'video/quicktime', 'video/x-msvideo', 'video/webm',
+                            // Documents
+                            'application/pdf',
+                            'application/msword',
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                            'application/vnd.ms-excel',
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                        ];
+                        
+                        if (!in_array($mimeType, $allowedMimes)) {
+                            $fail('The file type is not allowed. Allowed types: Images, Videos, PDF, Documents.');
+                        }
+                    }
+                },
+            ],
             'title' => 'nullable|string|max:255',
             'type' => 'nullable|string|in:image,icon,video,document,pdf,svg,file',
-            'folder' => 'nullable|string|max:255',
+            'folder' => 'nullable|string|max:255|regex:/^[a-z0-9\/_-]+$/i',
+        ], [
+            'file.required' => 'Please select a file to upload.',
+            'file.max' => 'The file size must not exceed 50MB.',
+            'folder.regex' => 'Folder name can only contain letters, numbers, slashes, hyphens, and underscores.',
         ]);
 
         try {
@@ -140,11 +176,29 @@ class AssetController extends Controller
      */
     public function show(Asset $asset): View|JsonResponse
     {
-        if (request()->wantsJson() || request()->ajax()) {
-            return response()->json($asset);
+        if (request()->wantsJson() || request()->ajax() || request()->expectsJson()) {
+            return response()->json([
+                'id' => $asset->id,
+                'title' => $asset->title,
+                'type' => $asset->type,
+                'is_active' => $asset->is_active,
+                'file_path_url' => $asset->file_path_url,
+                'file_id' => $asset->file_id,
+                'created_at' => $asset->created_at?->toDateTimeString(),
+                'updated_at' => $asset->updated_at?->toDateTimeString(),
+            ]);
         }
 
         return view('admin.assets.show', compact('asset'));
+    }
+
+    /**
+     * Show the form for editing the specified asset.
+     */
+    public function edit(Asset $asset): View
+    {
+        $types = Asset::getTypes();
+        return view('admin.assets.edit', compact('asset', 'types'));
     }
 
     /**
@@ -153,13 +207,74 @@ class AssetController extends Controller
     public function update(Request $request, Asset $asset): JsonResponse|RedirectResponse
     {
         $request->validate([
-            'title' => 'nullable|string|max:255',
-            'type' => 'nullable|string|in:image,icon,video,document,pdf,svg,file',
+            'file' => 'nullable|file|max:51200', // 50MB max, optional
+            'title' => 'required|string|max:255',
+            'type' => 'required|string|in:image,icon,video,document,pdf,svg,file',
             'is_active' => 'nullable|boolean',
+        ], [
+            'title.required' => 'Title is required.',
+            'title.max' => 'Title must not exceed 255 characters.',
+            'type.required' => 'Type is required.',
+            'type.in' => 'Invalid asset type selected.',
+            'file.max' => 'The file size must not exceed 50MB.',
         ]);
 
         try {
-            $asset->update($request->only(['title', 'type', 'is_active']));
+            $updateData = [
+                'title' => $request->input('title'),
+                'type' => $request->input('type'),
+                'is_active' => $request->has('is_active') ? (bool) $request->input('is_active') : false,
+            ];
+
+            // Handle file replacement if a new file is uploaded
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                
+                // Delete old file from ImageKit if fileId exists
+                if ($asset->file_id) {
+                    try {
+                        $this->imageKitService->delete($asset->file_id);
+                    } catch (Exception $e) {
+                        // Log error but continue with new upload
+                        \Log::warning('Failed to delete old file from ImageKit: ' . $e->getMessage(), [
+                            'file_id' => $asset->file_id,
+                            'asset_id' => $asset->id,
+                        ]);
+                    }
+                }
+
+                // Determine file type if not provided or if it changed
+                $mimeType = $file->getMimeType();
+                $detectedType = ImageKitService::getFileTypeFromMime($mimeType);
+                
+                // Check if it's an icon (small image file)
+                if ($detectedType === 'image' && ImageKitService::isIcon($file)) {
+                    $detectedType = Asset::TYPE_ICON;
+                }
+
+                // Update type if it changed
+                if ($detectedType !== $updateData['type']) {
+                    $updateData['type'] = $detectedType;
+                }
+
+                // Upload new file to ImageKit
+                $uploadResult = $this->imageKitService->upload(
+                    $file,
+                    null, // Use default folder
+                    null, // Use auto-generated filename
+                    []
+                );
+
+                if (!$uploadResult['success']) {
+                    throw new Exception('Failed to upload new file');
+                }
+
+                // Update with new file information
+                $updateData['file_path_url'] = $uploadResult['url'];
+                $updateData['file_id'] = $uploadResult['fileId'] ?? null;
+            }
+            
+            $asset->update($updateData);
 
             if ($request->wantsJson() || $request->ajax()) {
                 return response()->json([

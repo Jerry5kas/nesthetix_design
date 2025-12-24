@@ -48,10 +48,9 @@ class ImageKitService
             $fileContent = file_get_contents($file->getRealPath());
             $base64File = base64_encode($fileContent);
 
-            // Apply optimization options if enabled
-            if ($optimize && config('imagekit.auto_optimize', true)) {
-                $options = array_merge($options, $this->getOptimizationOptions($fileType, $mimeType));
-            }
+            // Note: We don't apply transformations during upload
+            // Transformations are applied on-the-fly when generating URLs
+            // This gives us more flexibility and stores the original file
 
             // Prepare upload options
             $uploadOptions = array_merge([
@@ -60,6 +59,9 @@ class ImageKitService
                 'folder' => $folder,
                 'useUniqueFileName' => config('imagekit.use_unique_filename', true),
             ], $options);
+            
+            // Remove transformation if it exists (we don't want it during upload)
+            unset($uploadOptions['transformation']);
 
             // Upload to ImageKit
             $uploadResult = $this->imageKit->upload($uploadOptions);
