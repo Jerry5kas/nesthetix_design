@@ -4,7 +4,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    {{-- SEO Meta Tags --}}
     <title>{{ $title ?? $theme['settings']['site_name'] ?? 'Nesthetix' }}</title>
+    <meta name="description" content="{{ $description ?? 'Premium interior design studio specializing in luxury residential and commercial spaces. Transform your space with thoughtful design where every detail matters.' }}" />
+    <meta name="keywords" content="{{ $keywords ?? 'interior design, luxury interiors, premium design, residential design, commercial design, home design, interior architecture' }}" />
+    <meta name="robots" content="{{ $robots ?? 'index, follow' }}" />
+    <meta name="author" content="{{ $theme['settings']['site_name'] ?? 'Nesthetix Designs' }}" />
+    <link rel="canonical" href="{{ $canonical ?? url()->current() }}" />
+    
+    {{-- Open Graph Meta Tags --}}
+    <meta property="og:title" content="{{ $title ?? $theme['settings']['site_name'] ?? 'Nesthetix Designs' }}" />
+    <meta property="og:description" content="{{ $description ?? 'Premium interior design studio specializing in luxury residential and commercial spaces.' }}" />
+    <meta property="og:type" content="{{ $ogType ?? 'website' }}" />
+    <meta property="og:url" content="{{ $canonical ?? url()->current() }}" />
+    <meta property="og:image" content="{{ $ogImage ?? asset('images/og-image.jpg') }}" />
+    <meta property="og:site_name" content="{{ $theme['settings']['site_name'] ?? 'Nesthetix Designs' }}" />
+    <meta property="og:locale" content="en_US" />
+    
+    {{-- Twitter Card Meta Tags --}}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ $title ?? $theme['settings']['site_name'] ?? 'Nesthetix Designs' }}" />
+    <meta name="twitter:description" content="{{ $description ?? 'Premium interior design studio specializing in luxury residential and commercial spaces.' }}" />
+    <meta name="twitter:image" content="{{ $ogImage ?? asset('images/og-image.jpg') }}" />
     
     <!-- Font Preconnect for optimal loading -->
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
@@ -352,5 +374,54 @@
 
     {{-- Global Consultation Form Lightbox --}}
     <x-consultation-form />
+
+    {{-- Structured Data (JSON-LD) for SEO --}}
+    @php
+        $interiorDesignService = [
+            '@context' => 'https://schema.org',
+            '@type' => 'InteriorDesignService',
+            'name' => $theme['settings']['site_name'] ?? 'Nesthetix Designs',
+            'description' => $description ?? 'Premium interior design studio specializing in luxury residential and commercial spaces. Transform your space with thoughtful design where every detail matters.',
+            'url' => url('/'),
+            'image' => $ogImage ?? asset('images/og-image.jpg'),
+            'serviceType' => [
+                'Interior Design',
+                'Residential Interior Design',
+                'Commercial Interior Design',
+                'Luxury Interior Design'
+            ],
+            'areaServed' => [
+                '@type' => 'Place',
+                'name' => 'Global'
+            ],
+            'aggregateRating' => [
+                '@type' => 'AggregateRating',
+                'ratingValue' => '4.9',
+                'reviewCount' => '500'
+            ]
+        ];
+        if (!empty($theme['branding']['logo_primary_url'])) {
+            $interiorDesignService['logo'] = $theme['branding']['logo_primary_url'];
+        }
+        
+        $organization = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => $theme['settings']['site_name'] ?? 'Nesthetix Designs',
+            'url' => url('/'),
+            'description' => 'Premium interior design studio specializing in luxury residential and commercial spaces.',
+            'sameAs' => []
+        ];
+        if (!empty($theme['branding']['logo_primary_url'])) {
+            $organization['logo'] = $theme['branding']['logo_primary_url'];
+        }
+    @endphp
+    <script type="application/ld+json">
+    {!! json_encode($interiorDesignService, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    </script>
+    
+    <script type="application/ld+json">
+    {!! json_encode($organization, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    </script>
   </body>
 </html>

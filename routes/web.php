@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AssetController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Admin\UserController;
@@ -67,5 +68,12 @@ Route::middleware('auth')->group(function () {
         // Users
         Route::get('/users', [UserController::class, 'index'])
             ->name('users');
+
+        // Assets
+        Route::resource('assets', AssetController::class);
+        Route::post('/assets/{asset}/toggle-active', [AssetController::class, 'toggleActive'])
+            ->name('assets.toggle-active');
+        Route::get('/assets/type/{type}', [AssetController::class, 'getByType'])
+            ->name('assets.by-type');
     });
 });
