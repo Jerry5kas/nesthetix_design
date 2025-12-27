@@ -9,12 +9,19 @@
     {{-- Trust Strip --}}
     <x-trust-strip />
 
-    
-
     {{-- Why Choose Section --}}
     <x-why-choose />
 
     {{-- Interior Services Section --}}
     <x-interior-services />
+
+    {{-- Expertise Section --}}
+    <x-expertise-section />
+
+    {{-- Projects Showcase Section --}}
+    <x-projects-showcase />
+
+    {{-- Testimonials Section --}}
+    <x-testimonials />
 
 </x-layouts.app>

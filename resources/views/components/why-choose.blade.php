@@ -8,8 +8,7 @@
     class="relative py-12 px-6 lg:px-16 overflow-hidden bg-white"
     data-animate="fade-up"
 >
-    {{-- Decorative Accent Lines --}}
-    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/30 to-transparent z-10"></div>
+    {{-- Decorative Accent Line --}}
     <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10"></div>
 
     {{-- Content Container --}}

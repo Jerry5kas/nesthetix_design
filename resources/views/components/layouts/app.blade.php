@@ -158,6 +158,11 @@
 
                     Object.entries(animations).forEach(([name, props]) => {
                         gsap.utils.toArray(`[data-animate="${name}"]`).forEach(el => {
+                            // Skip elements with custom animation handlers
+                            if (el.dataset.animateCustom === 'true') {
+                                return;
+                            }
+                            
                             const delay = el.dataset.delay || 0;
                             const duration = el.dataset.duration || 1;
                             
@@ -175,8 +180,13 @@
                         });
                     });
 
-                    // Stagger children
+                    // Stagger children (skip custom animations)
                     gsap.utils.toArray('[data-animate="stagger"]').forEach(container => {
+                        // Skip containers with custom animation handlers
+                        if (container.dataset.animateCustom === 'true') {
+                            return;
+                        }
+                        
                         gsap.from(container.children, {
                             scrollTrigger: {
                                 trigger: container,
