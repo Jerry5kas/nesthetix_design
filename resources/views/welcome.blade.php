@@ -1,8 +1,8 @@
 <x-layouts.app 
     title="Nesthetix Designs | Premium Interior Design Studio"
     description="Premium interior design studio specializing in luxury residential and commercial spaces. Transform your space with thoughtful design where every detail matters. 10+ years of excellence, 500+ completed projects."
-    canonical="{{ url('/') }}"
->
+    canonical="{{ url('/') }}">
+    
     {{-- Hero Section --}}
     <x-hero />
 
@@ -12,12 +12,18 @@
     {{-- Why Choose Section --}}
     <x-why-choose />
 
+    
+
     {{-- Interior Services Section --}}
-    <x-interior-services />
+    <x-services-cards />
 
-    {{-- Expertise Section --}}
-    <x-expertise-section />
+    {{-- How We Work Section --}}
+    <x-how-it-works />
 
+    {{-- expertise Section --}}
+    <x-expertise />
+
+    
     {{-- Projects Showcase Section --}}
     <x-projects-showcase />
 

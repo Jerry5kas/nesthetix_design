@@ -1,5 +1,5 @@
-{{-- Top Header Bar - Secondary Color Background --}}
-<div class="top-header transition-all duration-300 font-bold" id="topHeader" style="background-color: var(--color-secondary);">
+{{-- Top Header Bar - Hidden for now --}}
+<div class="top-header transition-all duration-300 font-bold hidden" id="topHeader" style="background-color: var(--color-secondary);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-12 sm:h-14 text-[11px] sm:text-xs md:text-sm" style="color: var(--color-text);">
             {{-- Left: Location --}}
@@ -58,58 +58,40 @@
     </div>
 </div>
 
-{{-- Main Navigation Bar - Light Background --}}
-<nav class="main-navbar sticky top-0 z-50 transition-all duration-300 bg-white border-b border-gray-100 shadow-sm" id="mainNavbar">
+{{-- Main Navigation Bar - Transparent when over hero --}}
+<nav class="main-navbar sticky top-0 z-50 transition-all duration-300" id="mainNavbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 lg:h-24">
             {{-- Left: Logo --}}
-            <a href="{{ url('/') }}" class="flex items-center gap-3 flex-shrink-0">
-                @if(!empty($theme['branding']['logo_primary_url']))
-                    {{-- Use Primary Logo (dark logo for light navbar) --}}
-                    <img src="{{ $theme['branding']['logo_primary_url'] }}" 
-                         alt="{{ $theme['settings']['site_name'] ?? 'Logo' }}" 
-                         class="h-16 lg:h-24 w-auto object-contain" />
-                @elseif(!empty($theme['branding']['logo_secondary_url']))
-                    {{-- Fallback to Secondary Logo with filter --}}
-                    <img src="{{ $theme['branding']['logo_secondary_url'] }}" 
-                         alt="{{ $theme['settings']['site_name'] ?? 'Logo' }}" 
-                         class="h-16 lg:h-24 w-auto object-contain brightness-0" />
-                @else
-                    {{-- Default: Icon + Text --}}
-                    <div class="logo-icon w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center" style="background-color: var(--color-primary);">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 lg:w-7 lg:h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                    </div>
-                    <span class="font-fancy text-2xl lg:text-3xl" style="color: var(--color-primary);">
-                        {{ $theme['settings']['site_name'] ?? 'Nesthetix' }}
-                    </span>
-                @endif
+            <a href="{{ route('home') }}" class="flex items-center gap-3 flex-shrink-0">
+                <img src="{{ asset('images/logo/wine.png') }}" 
+                     alt="{{ $theme['settings']['site_name'] ?? 'Nesthetix Designs' }}" 
+                     class="h-16 lg:h-24 w-auto object-contain" />
             </a>
 
             {{-- Right: Desktop Navigation & Mobile Menu Toggle --}}
             <div class="flex items-center gap-8">
                 {{-- Desktop Navigation --}}
                 <div class="hidden lg:flex items-center gap-10">
-                    <a href="{{ url('/') }}" class="nav-link-light text-[16px] lg:text-[18px] font-semibold tracking-[0.08em] uppercase {{ request()->is('/') ? 'active' : '' }}">
+                    <a href="{{ route('home') }}" class="nav-link-light font-semibold tracking-[0.08em] uppercase {{ request()->routeIs('home') ? 'active' : '' }}">
                         Home
                     </a>
-                    <a href="#services" class="nav-link-light text-[16px] lg:text-[18px] font-semibold tracking-[0.08em] uppercase">
+                    <a href="{{ route('services') }}" class="nav-link-light font-semibold tracking-[0.08em] uppercase {{ request()->routeIs('services') ? 'active' : '' }}">
                         Services
                     </a>
-                    <a href="#portfolio" class="nav-link-light text-[16px] lg:text-[18px] font-semibold tracking-[0.08em] uppercase">
+                    <a href="{{ route('portfolio') }}" class="nav-link-light font-semibold tracking-[0.08em] uppercase {{ request()->routeIs('portfolio') ? 'active' : '' }}">
                         Portfolio
                     </a>
-                    <a href="#about" class="nav-link-light text-[16px] lg:text-[18px] font-semibold tracking-[0.08em] uppercase">
+                    <a href="{{ route('about') }}" class="nav-link-light font-semibold tracking-[0.08em] uppercase {{ request()->routeIs('about') ? 'active' : '' }}">
                         About
                     </a>
-                    <a href="#contact" class="nav-link-light text-[16px] lg:text-[18px] font-semibold tracking-[0.08em] uppercase">
+                    <a href="{{ route('contact') }}" class="nav-link-light font-semibold tracking-[0.08em] uppercase {{ request()->routeIs('contact') ? 'active' : '' }}">
                         Contact
                     </a>
                 </div>
 
                 {{-- Mobile Menu Toggle --}}
-                <button type="button" class="lg:hidden p-2 rounded-lg transition-all hover:bg-gray-100" id="mobileMenuToggle" aria-label="Toggle menu" style="color: var(--color-primary);">
+                <button type="button" class="lg:hidden p-2 rounded-lg transition-all hover:bg-gray-100 navbar-toggle-btn" id="mobileMenuToggle" aria-label="Toggle menu" style="color: var(--color-primary);">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -124,31 +106,31 @@
     {{-- Mobile Menu --}}
     <div class="mobile-menu lg:hidden hidden" id="mobileMenu">
         <div class="px-4 py-6 space-y-1 border-t border-gray-100 bg-white">
-            <a href="{{ url('/') }}" class="mobile-nav-link-light text-[15px] font-semibold tracking-[0.06em] uppercase {{ request()->is('/') ? 'active' : '' }}">
+            <a href="{{ route('home') }}" class="mobile-nav-link-light font-semibold tracking-[0.06em] uppercase {{ request()->routeIs('home') ? 'active' : '' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 Home
             </a>
-            <a href="#services" class="mobile-nav-link-light text-[15px] font-semibold tracking-[0.06em] uppercase">
+            <a href="{{ route('services') }}" class="mobile-nav-link-light font-semibold tracking-[0.06em] uppercase {{ request()->routeIs('services') ? 'active' : '' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 Services
             </a>
-            <a href="#portfolio" class="mobile-nav-link-light text-[15px] font-semibold tracking-[0.06em] uppercase">
+            <a href="{{ route('portfolio') }}" class="mobile-nav-link-light font-semibold tracking-[0.06em] uppercase {{ request()->routeIs('portfolio') ? 'active' : '' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 Portfolio
             </a>
-            <a href="#about" class="mobile-nav-link-light text-[15px] font-semibold tracking-[0.06em] uppercase">
+            <a href="{{ route('about') }}" class="mobile-nav-link-light font-semibold tracking-[0.06em] uppercase {{ request()->routeIs('about') ? 'active' : '' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 About
             </a>
-            <a href="#contact" class="mobile-nav-link-light text-[15px] font-semibold tracking-[0.06em] uppercase">
+            <a href="{{ route('contact') }}" class="mobile-nav-link-light font-semibold tracking-[0.06em] uppercase {{ request()->routeIs('contact') ? 'active' : '' }}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
@@ -168,6 +150,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuIcon = mobileMenuToggle.querySelector('.menu-icon');
     const closeIcon = mobileMenuToggle.querySelector('.close-icon');
     
+    // Check if we're on the home page with hero section
+    const heroSection = document.querySelector('.hero-section');
+    const heroNavbar = document.getElementById('heroNavbar');
+    const isHeroPage = heroSection !== null;
+    
     let lastScrollY = window.scrollY;
     let isScrolled = false;
 
@@ -175,21 +162,68 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleScroll() {
         const currentScrollY = window.scrollY;
         
-        if (currentScrollY > 50) {
-            if (!isScrolled) {
-                isScrolled = true;
-                topHeader.classList.add('header-hidden');
-                mainNavbar.classList.add('navbar-scrolled');
+        if (isHeroPage) {
+            // On hero page, check if scrolled past hero
+            const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+            const scrollThreshold = 50; // Show main navbar after 50px scroll
+            
+            if (currentScrollY > scrollThreshold) {
+                // Show main navbar and hide hero navbar
+                if (!isScrolled) {
+                    isScrolled = true;
+                    mainNavbar.classList.remove('navbar-hidden');
+                    mainNavbar.classList.remove('navbar-transparent');
+                    mainNavbar.classList.add('navbar-scrolled');
+                    if (heroNavbar) {
+                        heroNavbar.style.opacity = '0';
+                        heroNavbar.style.pointerEvents = 'none';
+                        heroNavbar.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                    }
+                }
+            } else {
+                // Hide main navbar smoothly and show hero navbar
+                if (isScrolled) {
+                    isScrolled = false;
+                    mainNavbar.classList.add('navbar-hidden');
+                    mainNavbar.classList.add('navbar-transparent');
+                    mainNavbar.classList.remove('navbar-scrolled');
+                    if (heroNavbar) {
+                        heroNavbar.style.opacity = '1';
+                        heroNavbar.style.pointerEvents = 'auto';
+                        heroNavbar.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                    }
+                }
             }
         } else {
-            if (isScrolled) {
-                isScrolled = false;
-                topHeader.classList.remove('header-hidden');
-                mainNavbar.classList.remove('navbar-scrolled');
+            // On other pages, use standard behavior
+            if (currentScrollY > 50) {
+                if (!isScrolled) {
+                    isScrolled = true;
+                    mainNavbar.classList.add('navbar-scrolled');
+                }
+            } else {
+                if (isScrolled) {
+                    isScrolled = false;
+                    mainNavbar.classList.remove('navbar-scrolled');
+                }
             }
         }
         
         lastScrollY = currentScrollY;
+    }
+    
+    // Initialize navbar state
+    if (isHeroPage) {
+        // Initially hide main navbar smoothly and show hero navbar
+        mainNavbar.classList.add('navbar-hidden');
+        mainNavbar.classList.add('navbar-transparent');
+        if (heroNavbar) {
+            heroNavbar.style.opacity = '1';
+            heroNavbar.style.pointerEvents = 'auto';
+        }
+    } else {
+        mainNavbar.classList.add('navbar-scrolled');
+        mainNavbar.classList.remove('navbar-hidden');
     }
 
     // Mobile menu toggle

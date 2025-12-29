@@ -9,22 +9,9 @@
                 {{-- Brand Column --}}
                 <div class="lg:col-span-1">
                     <div class="mb-6">
-                        @if(!empty($theme['branding']['logo_secondary_url']))
-                            <img src="{{ $theme['branding']['logo_secondary_url'] }}" 
-                                 alt="{{ $theme['settings']['site_name'] ?? 'Logo' }}" 
-                                 class="h-12 w-auto object-contain" />
-                        @else
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
-                                </div>
-                                <span class="font-fancy text-3xl text-white">
-                                    {{ $theme['settings']['site_name'] ?? 'Nesthetix' }}
-                                </span>
-                            </div>
-                        @endif
+                        <img src="{{ asset('images/logo/wine.png') }}" 
+                             alt="{{ $theme['settings']['site_name'] ?? 'Nesthetix Designs' }}" 
+                             class="h-12 w-auto object-contain" />
                     </div>
                     <p class="text-white/60 text-sm leading-relaxed mb-6">
                         {{ $theme['settings']['site_tagline'] ?? 'Creating beautiful digital experiences that inspire and engage audiences worldwide.' }}
@@ -58,11 +45,11 @@
                 <div>
                     <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-6">Quick Links</h4>
                     <ul class="space-y-3">
-                        <li><a href="{{ url('/') }}" class="footer-link text-sm">Home</a></li>
-                        <li><a href="#services" class="footer-link text-sm">Services</a></li>
-                        <li><a href="#portfolio" class="footer-link text-sm">Portfolio</a></li>
-                        <li><a href="#about" class="footer-link text-sm">About Us</a></li>
-                        <li><a href="#contact" class="footer-link text-sm">Contact</a></li>
+                        <li><a href="{{ route('home') }}" class="footer-link text-sm">Home</a></li>
+                        <li><a href="{{ route('services') }}" class="footer-link text-sm">Services</a></li>
+                        <li><a href="{{ route('portfolio') }}" class="footer-link text-sm">Portfolio</a></li>
+                        <li><a href="{{ route('about') }}" class="footer-link text-sm">About Us</a></li>
+                        <li><a href="{{ route('contact') }}" class="footer-link text-sm">Contact</a></li>
                     </ul>
                 </div>
 

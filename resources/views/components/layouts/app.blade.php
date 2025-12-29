@@ -58,11 +58,14 @@
         .font-fancy, .text-fancy {
             font-family: 'Canela Text Trial', Georgia, 'Times New Roman', serif !important;
         }
+        [x-cloak] {
+            display: none !important;
+        }
     </style>
   </head>
 <body class="font-body min-h-screen flex flex-col" style="background-color: var(--color-background-light); color: var(--color-primary);" data-lenis-prevent>
     
-    {{-- Include Navbar Partial --}}
+    {{-- Include Navbar Partial (always included, JavaScript handles visibility on hero pages) --}}
     @include('components.partials.navbar')
 
     <!-- Main Content -->

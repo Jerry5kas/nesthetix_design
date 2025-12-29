@@ -6,335 +6,752 @@
         [
             'title' => '2 BHK, Luxury Apartment',
             'image' => 'https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg',
+            'description' => 'Contemporary design with clean lines and elegant furnishings, creating a luxurious living space.',
             'link' => '/projects/luxury-apartment',
         ],
         [
             'title' => 'Independent House, Bangalore',
             'image' => 'https://ik.imagekit.io/AthaConstruction/assets/pexels-ansar-muhammad-380085065-23916862_694fb6c25a2ec1.73279304_WM5zT6f4f.jpg',
+            'description' => 'Modern workspace design with smart layouts and premium finishes for optimal productivity.',
             'link' => '/projects/independent-house',
         ],
         [
             'title' => 'Villa, Premium Residence',
             'image' => 'https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-6758775_694fb6266e8f29.85505953_j20NcjqS2.jpg',
+            'description' => 'Elegant villa interior with traditional elements seamlessly blended with modern aesthetics.',
             'link' => '/projects/premium-villa',
         ],
         [
             'title' => 'Modern Office Space',
             'image' => 'https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-7535051_694fc1910371b6.19892859_OG657SCTl.jpg',
+            'description' => 'Serene bedroom design with luxurious touches, maximizing comfort and visual appeal.',
             'link' => '/projects/office-space',
         ],
         [
             'title' => 'Luxury Penthouse',
             'image' => 'https://ik.imagekit.io/AthaConstruction/assets/dining-room_694bad4ae18538.89672987_N_PzMlACP.jpg',
+            'description' => 'Sophisticated dining space with premium materials and refined design elements.',
             'link' => '/projects/penthouse',
         ],
+        [
+            'title' => 'Contemporary Living Room',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg',
+            'description' => 'Spacious living area designed for comfort and style, featuring modern furniture and lighting.',
+            'link' => '/projects/living-room',
+        ],
+        [
+            'title' => 'Premium Kitchen Design',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/dining-room_694bad4ae18538.89672987_N_PzMlACP.jpg',
+            'description' => 'State-of-the-art modular kitchen with premium finishes and smart storage solutions.',
+            'link' => '/projects/kitchen',
+        ],
     ],
-    'viewMoreText' => 'View More',
 ])
 
+@php
+    $totalItems = count($projects);
+    $angles = [4, -8, -7, 11, 13, -17, 20]; // Rotation angles for each card
+@endphp
+
 {{-- ============================================
-    PROJECTS SHOWCASE COMPONENT
-    Premium Interior Design - Projects Carousel Slider
+    PROJECTS SHOWCASE COMPONENT - Pure CSS Card Stack
+    Premium Interior Design - Interactive Card Stack
     Usage: <x-projects-showcase />
     ============================================ --}}
 
 <section 
-    class="relative py-12 px-6 lg:px-16 overflow-hidden bg-white"
+    class="max-w-7xl mx-auto text-center projects-showcase-section relative h-auto md:h-[40vh]"
     aria-labelledby="projects-showcase"
-    data-animate="fade-up"
-    x-data="projectsCarousel()"
 >
     {{-- Decorative Accent Line --}}
     <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10"></div>
 
-    <div class="relative max-w-7xl mx-auto z-20">
-        {{-- Header Section --}}
-        <div class="text-center max-w-4xl mx-auto mb-12" data-animate="fade-up">
-            {{-- Subheading Badge --}}
-            <p 
-                class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-3 font-medium"
-                style="font-family: 'Satoshi', sans-serif;"
-                data-animate="fade-up"
-                data-delay="0.1"
-            >
-                {{ $subheading }}
-            </p>
-
-            {{-- Main Heading --}}
-            <h2
-                id="projects-showcase"
-                class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight mb-4"
-                style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
-                data-animate="fade-up"
-                data-delay="0.2"
-            >
-                {{ $heading }}
-            </h2>
-
-            {{-- Primary Divider --}}
-            <div 
-                class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-6"
-                data-animate="fade-up"
-                data-delay="0.3"
-            ></div>
-
-            {{-- Description --}}
-            <p 
-                class="max-w-4xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed mb-8"
-                style="font-family: 'Satoshi', sans-serif;"
-                data-animate="fade-up"
-                data-delay="0.4"
-            >
-                {{ $description }}
-            </p>
-        </div>
-
-        {{-- Projects Carousel Container --}}
-        <div class="relative">
-            {{-- Carousel Wrapper --}}
-            <div 
-                class="projects-carousel-container overflow-hidden"
-                @touchstart="touchStart($event)"
-                @touchmove="touchMove($event)"
-                @touchend="touchEnd()"
-            >
+    <div class="relative max-w-7xl mx-auto z-20 w-full">
+        <div class="flex flex-col items-end justify-center">
+       
+        {{-- Card Stack Container --}}
+        <div class="projects-cards">
+            {{-- Heading Section --}}
+            <div class="projects-heading space-y-5">
+                @if($subheading)
+                <div>
+                    <p 
+                        class="text-theme-muted tracking-[0.3em] uppercase text-xs font-medium"
+                        style="font-family: 'Satoshi', sans-serif;"
+                    >
+                        {{ $subheading }}
+                    </p>
+                    </div>
+                @endif
+                @if($heading)
+                <div>
+                    <h2 
+                        class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight"
+                        style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
+                        id="projects-showcase"
+                    >
+                        {{ $heading }}
+                    </h2>
+                    </div>
+                @endif
+                {{-- Primary Divider --}}
+                <div>
                 <div 
-                    class="projects-carousel-track flex transition-transform duration-700 ease-out"
-                    x-bind:style="'transform: translateX(-' + getTransformValue() + '%)'"
-                >
-                    @foreach($projects as $index => $project)
-                        <div 
-                            class="projects-carousel-slide flex-shrink-0 px-3"
-                            x-bind:style="'width: ' + getSlideWidth() + '%'"
-                        >
-                            <article class="group relative h-full">
-                                <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-500 bg-white">
-                                    {{-- Project Image --}}
-                                    <div class="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden bg-gray-200">
-                                        <img 
-                                            src="{{ $project['image'] ?? '' }}" 
-                                            alt="{{ $project['title'] ?? 'Project Image' }}"
-                                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                                            loading="{{ $index < 3 ? 'eager' : 'lazy' }}"
-                                        />
-                                        {{-- Gradient Overlay on Hover --}}
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                    </div>
-
-                                    {{-- Project Content --}}
-                                    <div class="p-6 bg-white">
-                                        <h3 
-                                            class="font-light text-xl md:text-2xl text-theme-primary mb-4 leading-tight"
-                                            style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.01em;"
-                                        >
-                                            {{ $project['title'] }}
-                                        </h3>
-                                        
-                                        {{-- View More Button --}}
-                                        <a 
-                                            href="{{ $project['link'] ?? '#' }}"
-                                            class="inline-flex items-center gap-2 text-theme-secondary hover:text-theme-primary transition-colors duration-300 group/btn"
-                                            style="font-family: 'Satoshi', sans-serif;"
-                                        >
-                                            <span class="text-sm font-medium tracking-wide">{{ $viewMoreText }}</span>
-                                            <svg 
-                                                xmlns="http://www.w3.org/2000/svg" 
-                                                class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform duration-300" 
-                                                fill="none" 
-                                                viewBox="0 0 24 24" 
-                                                stroke="currentColor"
-                                            >
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    @endforeach
+                    class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto"
+                ></div>
                 </div>
+                            @if($description)
+                    <div>
+                    <p 
+                        class="max-w-4xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed"
+                        style="font-family: 'Satoshi', sans-serif;"
+                    >
+                        {{ $description }}
+                    </p>
+                    </div>
+                @endif
             </div>
-
-            {{-- Navigation Arrows --}}
-            <button 
-                type="button"
-                @click="prevSlide()"
-                class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 z-30 w-12 h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full bg-white shadow-lg border border-gray-200 text-theme-primary transition-all duration-300 hover:bg-theme-primary hover:text-white hover:scale-110 projects-nav-btn"
-                :class="{ 'opacity-50 cursor-not-allowed': currentIndex === 0 }"
-                :disabled="currentIndex === 0"
-                aria-label="Previous project"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 lg:w-6 lg:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
-
-            <button 
-                type="button"
-                @click="nextSlide()"
-                class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 z-30 w-12 h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full bg-white shadow-lg border border-gray-200 text-theme-primary transition-all duration-300 hover:bg-theme-primary hover:text-white hover:scale-110 projects-nav-btn"
-                :class="{ 'opacity-50 cursor-not-allowed': currentIndex >= maxIndex }"
-                :disabled="currentIndex >= maxIndex"
-                aria-label="Next project"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 lg:w-6 lg:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
-        </div>
-
-        {{-- Pagination Dots --}}
-        <div class="flex items-center justify-center gap-2 mt-8" data-animate="fade-up" data-delay="0.6">
-            <template x-for="(project, index) in projects" :key="index">
-                <button 
-                    type="button"
-                    @click="goToSlide(index)"
-                    class="transition-all duration-500 rounded-full"
-                    :class="currentIndex === index ? 'w-10 h-2 bg-theme-primary' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'"
-                    :aria-label="'Go to project ' + (index + 1)"
-                ></button>
-            </template>
+            
+            @foreach($projects as $index => $project)
+                <input 
+                    type="radio" 
+                    id="radio-{{ $index + 1 }}" 
+                    name="radio-card" 
+                    {{ $index === 0 ? 'checked' : '' }}
+                    class="projects-radio"
+                >
+                <article 
+                    class="projects-card" 
+                    style="--angle:{{ $angles[$index] ?? 0 }}deg"
+                >
+                    <img 
+                        class="projects-card-img" 
+                        src="{{ $project['image'] }}" 
+                        alt="{{ $project['title'] }}"
+                        loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                    >
+                    <div class="projects-card-data">
+                        <span class="projects-card-num">{{ $index + 1 }}/{{ $totalItems }}</span>
+                        <h2 style="font-family: 'Canela Text Trial', serif;">{{ $project['title'] }}</h2>
+                        <p style="font-family: 'Satoshi', sans-serif;">{{ $project['description'] ?? 'Premium interior design project crafted with attention to detail and exceptional quality.' }}</p>
+                        <footer>
+                            <label 
+                                for="radio-{{ $index === 0 ? $totalItems : $index }}" 
+                                aria-label="Previous"
+                            >&#10094;</label>
+                            <label 
+                                for="radio-{{ $index === $totalItems - 1 ? 1 : $index + 2 }}" 
+                                aria-label="Next"
+                            >&#10095;</label>
+                        </footer>
+                    </div>
+                </article>
+            @endforeach
         </div>
     </div>
 </section>
 
-{{-- Alpine.js Carousel Script --}}
 <script>
-function projectsCarousel() {
-    return {
-        currentIndex: 0,
-        touchStartX: 0,
-        touchEndX: 0,
-        itemsPerView: 3, // Desktop: 3 items, will be adjusted on mobile
-        
-        get maxIndex() {
-            return Math.max(0, this.projects.length - this.itemsPerView);
-        },
-        
-        get projects() {
-            return @json($projects);
-        },
-        
-        getTransformValue() {
-            return this.currentIndex * (100 / this.itemsPerView);
-        },
-        
-        getSlideWidth() {
-            return 100 / this.itemsPerView;
-        },
-        
-        init() {
-            this.updateItemsPerView();
-            window.addEventListener('resize', () => {
-                this.updateItemsPerView();
+document.addEventListener('DOMContentLoaded', function() {
+    const labels = document.querySelectorAll('.projects-card-data footer label');
+    let savedScrollY = null;
+    
+    // Save scroll position before any interaction
+    function saveScrollPosition() {
+        savedScrollY = window.scrollY || window.pageYOffset;
+    }
+    
+    // Restore scroll position
+    function restoreScrollPosition() {
+        if (savedScrollY !== null) {
+            window.scrollTo({
+                top: savedScrollY,
+                behavior: 'instant'
             });
-        },
-        
-        updateItemsPerView() {
-            if (window.innerWidth < 768) {
-                this.itemsPerView = 1; // Mobile: 1 item
-            } else if (window.innerWidth < 1024) {
-                this.itemsPerView = 2; // Tablet: 2 items
-            } else {
-                this.itemsPerView = 3; // Desktop: 3 items
-            }
-            // Ensure currentIndex doesn't exceed maxIndex
-            if (this.currentIndex > this.maxIndex) {
-                this.currentIndex = this.maxIndex;
-            }
-        },
-        
-        nextSlide() {
-            if (this.currentIndex < this.maxIndex) {
-                this.currentIndex++;
-            }
-        },
-        
-        prevSlide() {
-            if (this.currentIndex > 0) {
-                this.currentIndex--;
-            }
-        },
-        
-        goToSlide(index) {
-            if (index <= this.maxIndex) {
-                this.currentIndex = index;
-            } else {
-                this.currentIndex = this.maxIndex;
-            }
-        },
-        
-        // Touch swipe support
-        touchStart(e) {
-            this.touchStartX = e.touches[0].clientX;
-        },
-        
-        touchMove(e) {
-            this.touchEndX = e.touches[0].clientX;
-        },
-        
-        touchEnd() {
-            if (!this.touchStartX || !this.touchEndX) return;
-            
-            const diff = this.touchStartX - this.touchEndX;
-            const minSwipeDistance = 50;
-            
-            if (Math.abs(diff) > minSwipeDistance) {
-                if (diff > 0) {
-                    // Swipe left - next slide
-                    this.nextSlide();
-                } else {
-                    // Swipe right - previous slide
-                    this.prevSlide();
-                }
-            }
-            
-            this.touchStartX = 0;
-            this.touchEndX = 0;
         }
     }
-}
+    
+    // Prevent scroll when clicking navigation labels
+    labels.forEach(label => {
+        // Save scroll on interaction start
+        label.addEventListener('mousedown', saveScrollPosition, { passive: true });
+        label.addEventListener('touchstart', saveScrollPosition, { passive: true });
+        
+        // Restore scroll after click - multiple attempts to catch delayed scrolls
+        label.addEventListener('click', function(e) {
+            // Restore immediately
+            restoreScrollPosition();
+            
+            // Restore after microtask
+            Promise.resolve().then(() => {
+                restoreScrollPosition();
+            });
+            
+            // Restore after short delay
+            setTimeout(() => {
+                restoreScrollPosition();
+            }, 0);
+            
+            setTimeout(() => {
+                restoreScrollPosition();
+            }, 50);
+            
+            setTimeout(() => {
+                restoreScrollPosition();
+            }, 150);
+            
+            setTimeout(() => {
+                restoreScrollPosition();
+                savedScrollY = null;
+            }, 300);
+        });
+    });
+    
+    // Also prevent scroll on radio button change events
+    const radioButtons = document.querySelectorAll('.projects-radio');
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (savedScrollY !== null) {
+                restoreScrollPosition();
+                
+                setTimeout(() => {
+                    restoreScrollPosition();
+                }, 0);
+                
+                setTimeout(() => {
+                    restoreScrollPosition();
+                }, 100);
+            }
+        });
+        
+        // Prevent scroll when radio buttons receive focus
+        radio.addEventListener('focus', function() {
+            setTimeout(() => {
+                if (document.activeElement === this) {
+                    this.blur();
+                }
+            }, 0);
+        });
+    });
+});
 </script>
 
-{{-- Carousel Styles --}}
 <style>
-.projects-carousel-container {
-    padding: 0 60px; /* Space for navigation arrows */
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: true;
 }
 
-@media (max-width: 1024px) {
-    .projects-carousel-container {
-        padding: 0 50px;
+/* General Reset */
+.projects-showcase-section *,
+.projects-showcase-section *::before,
+.projects-showcase-section *::after {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.projects-showcase-section img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Hide radio buttons */
+.projects-radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Heading Section */
+.projects-heading {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    pointer-events: auto;
+    grid-row: 1;
+    grid-column: 1;
+    gap: 1.5rem;
+}
+
+/* Cards Container */
+.projects-cards {
+    --img-w: 280px;
+    --duration: 300ms;
+    --img-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: min(100% - 4rem, 1200px);
+    margin-inline: auto;
+    margin-top: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    counter-reset: my-counter;
+    min-height: auto;
+    position: relative;
+    justify-items: center;
+    align-items: start;
+    gap: 0;
+}
+
+@media (min-width: 1024px) {
+    .projects-cards {
+        min-height: auto;
+        height: auto;
     }
 }
 
-@media (max-width: 768px) {
-    .projects-carousel-container {
-        padding: 0 40px;
+/* Card Styling - Left Image, Right Content */
+.projects-card {
+    --cards-grid-cols: auto;
+    --cards-grid-rows: var(--img-w) auto;
+    --cards-grid-gap: 2rem;
+    --cards-footer-justify: center;
+    
+    grid-row: 2;
+    grid-column: 1;
+    display: grid;
+    place-items: center;
+    justify-items: center;
+    grid-template-columns: var(--cards-grid-cols);
+    grid-template-rows: var(--cards-grid-rows);
+    gap: var(--cards-grid-gap);
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Desktop: Image Left, Content Right */
+@media (min-width: 600px) {
+    .projects-cards {
+        --img-w: 350px;
+        grid-template-rows: 1fr;
     }
     
-    .projects-nav-btn {
-        width: 2.5rem;
-        height: 2.5rem;
+    .projects-heading {
+        position: absolute;
+        top: calc(var(--img-w) * 0.1);
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 900px;
+        margin-bottom: 0;
+        padding: 2rem 1.5rem;
+        z-index: 100;
+        pointer-events: none;
+        grid-row: 1;
+        grid-column: 1;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        gap: 1.5rem;
+    }
+    
+    .projects-card {
+        --cards-grid-cols: var(--img-w) auto;
+        --cards-grid-rows: auto;
+        --cards-grid-gap: 5rem;
+        --cards-footer-justify: start;
+        grid-area: 1/1;
+        place-items: center;
+        justify-items: start;
+        align-items: center;
     }
 }
 
-.projects-carousel-track {
-    will-change: transform;
+/* Card Image - Left Side */
+.projects-card-img {
+    width: 200px;
+    height: 200px;
+    aspect-ratio: 1 / 1;
+    rotate: var(--angle, 0deg);
+    border-radius: 10px;
+    border: 3px solid #FFF;
+    overflow: hidden;
+    transform-origin: center;
+    object-fit: cover;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
 }
 
-.projects-carousel-slide {
-    transition: opacity 0.3s ease;
+@media (min-width: 600px) {
+    .projects-card-img {
+        width: 350px;
+        height: 350px;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: center;
+        justify-self: center;
+    }
 }
 
-/* Smooth scroll behavior */
+/* Card Data - Right Side */
+.projects-card-data {
+    display: grid;
+    gap: 1rem;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    max-width: 500px;
+    justify-items: center;
+    text-align: center;
+}
+
+@media (min-width: 600px) {
+    .projects-card-data {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+        justify-self: start;
+        text-align: left;
+        max-width: 600px;
+    }
+}
+
+/* Image Straightening Animations */
+#radio-1:checked + .projects-card ~ .projects-card > .projects-card-img {
+    animation: straighten-img-1 calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+.projects-card:has(~#radio-2:checked) > .projects-card-img,
+#radio-2:checked + .projects-card ~ .projects-card > .projects-card-img {
+    animation: straighten-img-2 calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+.projects-card:has(~#radio-3:checked) > .projects-card-img,
+#radio-3:checked + .projects-card ~ .projects-card > .projects-card-img {
+    animation: straighten-img-3 calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+.projects-card:has(~#radio-4:checked) > .projects-card-img,
+#radio-4:checked + .projects-card ~ .projects-card > .projects-card-img {
+    animation: straighten-img-4 calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+.projects-card:has(~#radio-5:checked) > .projects-card-img,
+#radio-5:checked + .projects-card ~ .projects-card > .projects-card-img {
+    animation: straighten-img-5 calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+.projects-card:has(~#radio-6:checked) > .projects-card-img,
+#radio-6:checked + .projects-card ~ .projects-card > .projects-card-img {
+    animation: straighten-img-6 calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+.projects-card:has(~#radio-7:checked) > .projects-card-img,
+#radio-7:checked + .projects-card ~ .projects-card > .projects-card-img {
+    animation: straighten-img-7 calc(var(--duration) * 2) forwards;
+    animation-timing-function: var(--img-easing);
+}
+
+/* Keyframe Animations */
+@keyframes straighten-img-1 { 50% { --angle: 0deg; } }
+@keyframes straighten-img-2 { 50% { --angle: 0deg; } }
+@keyframes straighten-img-3 { 50% { --angle: 0deg; } }
+@keyframes straighten-img-4 { 50% { --angle: 0deg; } }
+@keyframes straighten-img-5 { 50% { --angle: 0deg; } }
+@keyframes straighten-img-6 { 50% { --angle: 0deg; } }
+@keyframes straighten-img-7 { 50% { --angle: 0deg; } }
+
+/* Stacking Order - Z-Index Management */
+.projects-card {
+    z-index: -1;
+}
+
+.projects-radio:checked + .projects-card {
+    z-index: 10 !important;
+}
+
+/* Next card checked - place behind */
+.projects-card:has(+ .projects-radio:checked) {
+    z-index: 9;
+}
+
+/* Next card +1 checked - place behind */
+.projects-card:has(+ .projects-radio + .projects-card + .projects-radio:checked) {
+    z-index: 8;
+}
+
+/* Next card +2 checked - place behind */
+.projects-card:has(+ .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio:checked) {
+    z-index: 7;
+}
+
+/* Next card +3 checked - place behind */
+.projects-card:has(+ .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio:checked) {
+    z-index: 6;
+}
+
+/* Next card +4 checked - place behind */
+.projects-card:has(+ .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio:checked) {
+    z-index: 5;
+}
+
+/* Next card +5 checked - place behind */
+.projects-card:has(+ .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio:checked) {
+    z-index: 4;
+}
+
+/* Next card +6 checked - place behind */
+.projects-card:has(+ .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio + .projects-card + .projects-radio:checked) {
+    z-index: 3;
+}
+
+/* Card Data Content Styling */
+.projects-card-data > .projects-card-num {
+    opacity: var(--data-opacity, 0);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.projects-card-data > p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    font-family: 'Satoshi', sans-serif;
+    margin: 0;
+}
+
+.projects-card-data > h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+    line-height: 1.2;
+    margin: 0;
+    font-family: 'Canela Text Trial', serif;
+}
+
+.projects-card-data > h2,
+.projects-card-data > p {
+    transition: var(--duration) ease-in-out;
+    transition-delay: var(--data-delay, 0ms);
+    opacity: var(--data-opacity, 0);
+    translate: 0 var(--data-y, 20px);
+}
+
+.projects-card-data > footer {
+    display: flex;
+    justify-content: var(--cards-footer-justify);
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.projects-card-data > footer label {
+    margin-block-start: auto;
+    cursor: pointer;
+    pointer-events: var(--card-events, none);
+    opacity: var(--data-opacity, 0);
+    transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+    color: var(--label-clr-txt, var(--color-primary));
+    background-color: var(--label-clr-bg, rgba(0, 0, 0, 0.05));
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    aspect-ratio: 1/1;
+    display: grid;
+    place-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    user-select: none;
+}
+
+.projects-radio:checked:focus-visible + .projects-card > .projects-card-data > footer label,
+.projects-card-data > footer label:hover {
+    --label-clr-txt: #FFF;
+    --label-clr-bg: var(--color-primary);
+}
+
+.projects-radio:checked + .projects-card {
+    --data-opacity: 1;
+    --data-y: 0;
+    --data-delay: var(--duration);
+    --card-events: auto;
+    transition: z-index;
+    transition-delay: 300ms;
+}
+
+.projects-radio:checked + .projects-card > .projects-card-img {
+    animation: reveal-img calc(var(--duration) * 2) forwards;
+}
+
+@keyframes reveal-img {
+    50% {
+        translate: -150% 0;
+        --angle: 0deg;
+    }
+}
+
+/* Section Height Adjustments */
+.projects-showcase-section {
+    min-height: auto;
+    height: auto;
+    scroll-margin-top: 0;
+    scroll-padding-top: 0;
+    contain: layout style;
+}
+
+/* Prevent scroll on radio button focus */
+.projects-radio:focus {
+    outline: none;
+}
+
+.projects-radio:focus-visible {
+    outline: none;
+}
+
+/* Prevent scroll jumps on mobile */
+@media (max-width: 600px) {
+    .projects-showcase-section {
+        scroll-behavior: auto;
+        overflow-anchor: none;
+    }
+    
+    .projects-cards {
+        scroll-margin: 0;
+        scroll-padding: 0;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .projects-showcase-section {
+        height: auto;
+        min-height: auto;
+    }
+    
+    .projects-heading {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+        padding: 1.5rem 1rem;
+        pointer-events: auto;
+        transform: none;
+        left: auto;
+        gap: 1.5rem;
+    }
+    
+    .projects-cards {
+        --img-w: 200px;
+        width: min(100% - 2rem, 100%);
+        min-height: 400px;
+        grid-template-rows: auto 1fr;
+        justify-items: center;
+        align-items: start;
+    }
+    
+    .projects-heading {
+        grid-row: 1;
+        grid-column: 1;
+    }
+    
+    .projects-card {
+        grid-row: 2;
+        grid-column: 1;
+        justify-items: center;
+        align-items: center;
+        --cards-grid-gap: 1rem;
+    }
+    
+    .projects-card-img {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+    
+    .projects-card-data {
+        text-align: center;
+        max-width: 100%;
+        justify-items: center;
+    }
+    
+    .projects-card-data > h2 {
+        font-size: 1.5rem;
+    }
+    
+    .projects-card-data > p {
+        font-size: 0.85rem;
+    }
+    
+    .projects-card-data > footer {
+        justify-content: center;
+    }
+    
+    .projects-card-data > footer label {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .projects-heading {
+        position: absolute;
+        width: 100%;
+        top: calc(var(--img-w) * 0.08);
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 850px;
+        margin-bottom: 0;
+        padding: 2rem 1.5rem;
+        z-index: 100;
+        pointer-events: none;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        gap: 1.5rem;
+    }
+    
+    .projects-cards {
+        width: min(100% - 3rem, 800px);
+        grid-template-rows: 1fr;
+    }
+    
+    .projects-heading {
+        grid-row: 1;
+        grid-column: 1;
+    }
+    
+    .projects-card {
+        grid-area: 1/1;
+        --cards-grid-gap: 3rem;
+    }
+}
+
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-    .projects-carousel-track {
-        transition: none;
-    }
-    
-    .projects-carousel-slide img {
-        transition: none;
+    .projects-card-img,
+    .projects-card-data > h2,
+    .projects-card-data > p,
+    .projects-card-data > footer label {
+        animation: none !important;
+        transition: none !important;
     }
 }
 </style>
