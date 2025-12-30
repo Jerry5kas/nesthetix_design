@@ -5,17 +5,17 @@
     ============================================ --}}
 
 <section
-    class="relative py-12 px-6 lg:px-16 overflow-hidden bg-white"
+    class="relative py-8 sm:py-10 px-6 lg:px-16 overflow-hidden bg-white"
     data-animate="fade-up"
 >
     {{-- Decorative Accent Line --}}
     <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10"></div>
 
     {{-- Content Container --}}
-    <div class="relative max-w-6xl mx-auto text-center z-20">
+    <div class="relative max-w-5xl mx-auto text-center z-20">
         {{-- Tagline --}}
         <p 
-            class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-3 font-medium"
+            class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-2 font-medium"
             style="font-family: 'Satoshi', sans-serif;"
             data-animate="fade-up"
             data-delay="0.1"
@@ -25,7 +25,7 @@
 
         {{-- Heading --}}
         <h2 
-            class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight mb-4"
+            class="font-light text-2xl md:text-3xl lg:text-4xl text-theme-primary leading-tight mb-3"
             style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
             data-animate="fade-up"
             data-delay="0.2"
@@ -35,14 +35,14 @@
 
         {{-- Primary Divider --}}
         <div 
-            class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-6"
+            class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-5"
             data-animate="fade-up"
             data-delay="0.3"
         ></div>
 
         {{-- Description --}}
         <p 
-            class="max-w-4xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed mb-8"
+            class="max-w-3xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed mb-6"
             style="font-family: 'Satoshi', sans-serif;"
             data-animate="fade-up"
             data-delay="0.4"
@@ -54,53 +54,100 @@
 
         {{-- Stats Card --}}
         <div
-            class="bg-white text-theme-dark px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 mb-2 font-bold"
-            x-data
+            class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
+            x-data="{
+                count1: 0,
+                count2: 0,
+                count3: 0,
+                count4: 0,
+                target1: 10,
+                target2: 500,
+                target3: 98,
+                target4: 50,
+                duration: 2000, // 2 seconds animation duration
+                started: false,
+                animationFrame: null,
+                init() {
+                    // Check if element is already visible on mount
+                    this.$nextTick(() => {
+                        const rect = this.$el.getBoundingClientRect();
+                        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                        if (isVisible && !this.started) {
+                            setTimeout(() => this.startCounting(), 300);
+                        }
+                    });
+                },
+                startCounting() {
+                    if (this.started) return;
+                    this.started = true;
+                    const startTime = Date.now();
+                    const self = this;
+                    const animate = () => {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / self.duration, 1);
+                        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                        self.count1 = self.target1 * easeOutQuart;
+                        self.count2 = self.target2 * easeOutQuart;
+                        self.count3 = self.target3 * easeOutQuart;
+                        self.count4 = self.target4 * easeOutQuart;
+                        if (progress < 1) {
+                            self.animationFrame = requestAnimationFrame(animate);
+                        } else {
+                            self.count1 = self.target1;
+                            self.count2 = self.target2;
+                            self.count3 = self.target3;
+                            self.count4 = self.target4;
+                            self.animationFrame = null;
+                        }
+                    };
+                    self.animationFrame = requestAnimationFrame(animate);
+                }
+            }"
+            x-intersect.threshold.50="startCounting()"
             data-animate="fade-up"
             data-delay="0.5"
         >
             {{-- Stat 1 --}}
             <div class="text-center">
-                <p class="text-theme-secondary font-semibold text-3xl md:text-4xl lg:text-5xl mb-1.5" style="font-family: 'Canela Text Trial', serif;">
-                    10+
+                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1" style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
+                    <span x-text="Math.floor(count1)">0</span>+
                 </p>
-                <p class="text-xs font-medium text-gray-700" style="font-family: 'Satoshi', sans-serif;">
+                <p class="text-xs font-medium text-gray-600" style="font-family: 'Satoshi', sans-serif;">
                     Years Of Excellence
                 </p>
             </div>
 
             {{-- Stat 2 --}}
             <div class="text-center">
-                <p class="text-theme-secondary font-semibold text-3xl md:text-4xl lg:text-5xl mb-1.5" style="font-family: 'Canela Text Trial', serif;">
-                    500+
+                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1" style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
+                    <span x-text="Math.floor(count2)">0</span>+
                 </p>
-                <p class="text-xs font-medium text-gray-700" style="font-family: 'Satoshi', sans-serif;">
+                <p class="text-xs font-medium text-gray-600" style="font-family: 'Satoshi', sans-serif;">
                     Completed Projects
                 </p>
             </div>
 
             {{-- Stat 3 --}}
             <div class="text-center">
-                <p class="text-theme-secondary font-semibold text-3xl md:text-4xl lg:text-5xl mb-1.5" style="font-family: 'Canela Text Trial', serif;">
-                    98%
+                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1" style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
+                    <span x-text="Math.floor(count3)">0</span>%
                 </p>
-                <p class="text-xs font-medium text-gray-700" style="font-family: 'Satoshi', sans-serif;">
+                <p class="text-xs font-medium text-gray-600" style="font-family: 'Satoshi', sans-serif;">
                     Client Satisfaction
                 </p>
             </div>
 
             {{-- Stat 4 --}}
             <div class="text-center">
-                <p class="text-theme-secondary font-semibold text-3xl md:text-4xl lg:text-5xl mb-1.5" style="font-family: 'Canela Text Trial', serif;">
-                    50+
+                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1" style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
+                    <span x-text="Math.floor(count4)">0</span>+
                 </p>
-                <p class="text-xs font-medium text-gray-700" style="font-family: 'Satoshi', sans-serif;">
+                <p class="text-xs font-medium text-gray-600" style="font-family: 'Satoshi', sans-serif;">
                     Design Awards
                 </p>
             </div>
         </div>
-
-        
     </div>
 </section>
+
 

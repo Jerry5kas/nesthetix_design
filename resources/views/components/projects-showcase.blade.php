@@ -60,15 +60,14 @@
     ============================================ --}}
 
 <section 
-    class="max-w-7xl mx-auto text-center projects-showcase-section relative h-auto md:h-[40vh]"
+    class="flex flex-col items-center justify-center text-center projects-showcase-section relative pb-0"
     aria-labelledby="projects-showcase"
 >
     {{-- Decorative Accent Line --}}
-    <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10"></div>
+    <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-20"></div>
 
-    <div class="relative max-w-7xl mx-auto z-20 w-full">
-        <div class="flex flex-col items-end justify-center">
-       
+    <div class="relative max-w-7xl mx-auto z-30 w-full">
+        <div class="flex flex-col items-end justify-center pb-0 mb-0">
         {{-- Card Stack Container --}}
         <div class="projects-cards">
             {{-- Heading Section --}}
@@ -279,9 +278,9 @@ document.addEventListener('DOMContentLoaded', function() {
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
     pointer-events: auto;
     grid-row: 1;
     grid-column: 1;
@@ -290,16 +289,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* Cards Container */
 .projects-cards {
-    --img-w: 280px;
+    --img-w: 320px;
     --duration: 300ms;
     --img-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
     width: min(100% - 4rem, 1200px);
     margin-inline: auto;
     margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto;
     counter-reset: my-counter;
     min-height: auto;
+    height: auto;
     position: relative;
     justify-items: center;
     align-items: start;
@@ -336,8 +338,9 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Desktop: Image Left, Content Right */
 @media (min-width: 600px) {
     .projects-cards {
-        --img-w: 350px;
-        grid-template-rows: 1fr;
+        --img-w: 550px;
+        grid-template-rows: auto;
+        height: auto;
     }
     
     .projects-heading {
@@ -347,14 +350,12 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: translateX(-50%);
         max-width: 900px;
         margin-bottom: 0;
-        padding: 2rem 1.5rem;
+        padding: 2rem 1.5rem 1rem 1.5rem;
         z-index: 100;
         pointer-events: none;
         grid-row: 1;
         grid-column: 1;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 8px;
+        background: transparent;
         gap: 1.5rem;
     }
     
@@ -367,14 +368,15 @@ document.addEventListener('DOMContentLoaded', function() {
         place-items: center;
         justify-items: start;
         align-items: center;
+        margin-top: 4rem;
     }
 }
 
 /* Card Image - Left Side */
 .projects-card-img {
-    width: 200px;
-    height: 200px;
-    aspect-ratio: 1 / 1;
+    width: 320px;
+    height: 250px;
+    aspect-ratio: auto;
     rotate: var(--angle, 0deg);
     border-radius: 10px;
     border: 3px solid #FFF;
@@ -390,8 +392,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 @media (min-width: 600px) {
     .projects-card-img {
-        width: 350px;
-        height: 350px;
+        width: 550px;
+        height: 450px;
         grid-column: 1;
         grid-row: 1;
         align-self: center;
@@ -610,9 +612,40 @@ document.addEventListener('DOMContentLoaded', function() {
 .projects-showcase-section {
     min-height: auto;
     height: auto;
+    max-height: none;
     scroll-margin-top: 0;
     scroll-padding-top: 0;
+    scroll-padding-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
     contain: layout style;
+    background-image: url('https://ik.imagekit.io/AthaConstruction/assets/bg-interior_69538930975dd1.21410735_oZII3KUKK.jfif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.projects-showcase-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 1;
+}
+
+.projects-showcase-section > div {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.projects-showcase-section > div > div {
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 /* Prevent scroll on radio button focus */
@@ -629,6 +662,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .projects-showcase-section {
         scroll-behavior: auto;
         overflow-anchor: none;
+        background-attachment: scroll;
     }
     
     .projects-cards {
@@ -642,14 +676,15 @@ document.addEventListener('DOMContentLoaded', function() {
     .projects-showcase-section {
         height: auto;
         min-height: auto;
+        background-attachment: scroll;
     }
     
     .projects-heading {
         position: relative;
         width: 100%;
         max-width: 100%;
-        margin-bottom: 1.5rem;
-        padding: 1.5rem 1rem;
+        margin-bottom: 1rem;
+        padding: 1.5rem 1rem 0.5rem 1rem;
         pointer-events: auto;
         transform: none;
         left: auto;
@@ -657,10 +692,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     .projects-cards {
-        --img-w: 200px;
+        --img-w: 280px;
         width: min(100% - 2rem, 100%);
-        min-height: 400px;
-        grid-template-rows: auto 1fr;
+        min-height: auto;
+        height: auto;
+        grid-template-rows: auto;
         justify-items: center;
         align-items: start;
     }
@@ -679,8 +715,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     .projects-card-img {
-        width: 200px;
-        height: 200px;
+        width: 320px;
+        height: 250px;
         margin: 0 auto;
     }
     
@@ -719,18 +755,19 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: translateX(-50%);
         max-width: 850px;
         margin-bottom: 0;
-        padding: 2rem 1.5rem;
+        padding: 2rem 1.5rem 1rem 1.5rem;
         z-index: 100;
         pointer-events: none;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 8px;
+        background: transparent;
         gap: 1.5rem;
     }
     
     .projects-cards {
         width: min(100% - 3rem, 800px);
-        grid-template-rows: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
     
     .projects-heading {
@@ -740,6 +777,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     .projects-card {
         grid-area: 1/1;
+        margin-top: 4rem;
         --cards-grid-gap: 3rem;
     }
 }

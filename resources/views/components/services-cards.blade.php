@@ -93,7 +93,7 @@
                         <div class="service-card__features">
                             <template x-for="feature in service.keyFeatures" :key="feature">
                                 <div class="service-card__feature">
-                                    <svg class="w-4 h-4 text-[var(--color-primary)]" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                     </svg>
                                     <span x-text="feature" style="font-family: 'Satoshi', sans-serif;"></span>
@@ -275,8 +275,8 @@ function servicesCards() {
 .service-card:hover .service-card__head {
     text-align: center;
     top: calc(100% - 3em);
-    color: white;
-    background: rgba(50, 1, 47, 0.9);
+    color: #C9A86C;
+    background: rgba(122, 12, 104, 0.9);
     backdrop-filter: blur(10px);
     font-size: 1.75rem;
     transform: rotate(0deg) skew(2deg);
@@ -287,7 +287,7 @@ function servicesCards() {
 .service-card__content {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(50, 1, 47, 0.85) 0%, rgba(50, 1, 47, 0.95) 100%);
+    background: linear-gradient(to bottom, rgba(122, 12, 104, 0.85) 0%, rgba(122, 12, 104, 0.95) 100%);
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -306,7 +306,7 @@ function servicesCards() {
 }
 
 .service-card__title {
-    color: white;
+    color: #C9A86C;
     font-size: 2rem;
     font-weight: 300;
     margin-bottom: 1rem;
@@ -314,7 +314,7 @@ function servicesCards() {
 }
 
 .service-card__description {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
@@ -336,6 +336,7 @@ function servicesCards() {
 
 .service-card__feature svg {
     flex-shrink: 0;
+    color: #C9A86C;
 }
 
 /* Responsive Design */
@@ -375,8 +376,8 @@ function servicesCards() {
     .service-card__head {
         transform: rotate(0deg);
         position: static;
-        background: rgba(50, 1, 47, 0.9);
-        color: white;
+        background: rgba(122, 12, 104, 0.9);
+        color: #C9A86C;
         padding: 1rem;
         font-size: 1.25rem;
         box-shadow: none;
@@ -386,7 +387,8 @@ function servicesCards() {
     .service-card:hover .service-card__head {
         transform: rotate(0deg) skew(0deg);
         position: static;
-        background: rgba(50, 1, 47, 0.95);
+        background: rgba(122, 12, 104, 0.95);
+        color: #C9A86C;
         font-size: 1.5rem;
     }
     
@@ -404,21 +406,21 @@ function servicesCards() {
     
     .service-card__title {
         font-size: 1.5rem;
-        color: var(--color-primary, #32012f);
+        color: #C9A86C;
         margin-bottom: 0.75rem;
     }
     
     .service-card__description {
-        color: #666;
+        color: rgba(255, 255, 255, 0.95);
         margin-bottom: 1rem;
     }
     
     .service-card__feature {
-        color: #333;
+        color: rgba(255, 255, 255, 0.95);
     }
     
     .service-card__feature svg {
-        color: var(--color-primary, #32012f);
+        color: #C9A86C;
     }
 }
 

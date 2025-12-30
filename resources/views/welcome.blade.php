@@ -12,7 +12,8 @@
     {{-- Why Choose Section --}}
     <x-why-choose />
 
-    
+    {{-- About Section --}}
+    <x-about-story />
 
     {{-- Interior Services Section --}}
     <x-services-cards />
@@ -29,5 +30,8 @@
 
     {{-- Testimonials Section --}}
     <x-testimonials />
+
+    <!-- {{-- Latest Blogs Section --}}
+    <x-latest-blogs /> -->
 
 </x-layouts.app>

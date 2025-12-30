@@ -326,22 +326,24 @@
 
 /* Hover States */
 .expertise-item:hover .expertise-info {
-    background: rgba(158, 12, 73, 0.85);
+    background: rgba(122, 12, 104, 0.85);
 }
 
 .expertise-item:hover .expertise-info h3 {
     margin-top: 0;
     opacity: 1;
+    color: #C9A86C;
 }
 
 .expertise-item:hover .expertise-info h3::after {
     width: 60px;
-    border-top-color: rgba(255, 255, 255, 0.9);
+    border-top-color: #C9A86C;
 }
 
 .expertise-item:hover .expertise-info .expertise-excerpt {
     opacity: 1;
     transform: translateY(0);
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .expertise-item:hover .expertise-btn {
@@ -349,17 +351,21 @@
     border-radius: 25px;
     opacity: 1;
     transform: translateY(0);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(201, 168, 108, 0.1);
+    border-color: #C9A86C;
+    color: #C9A86C;
 }
 
 .expertise-item:hover .expertise-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.9);
+    background: rgba(201, 168, 108, 0.2);
+    border-color: #C9A86C;
+    color: #C9A86C;
 }
 
 .expertise-item:hover .expertise-btn span {
     opacity: 1;
     display: inline;
+    color: #C9A86C;
 }
 
 .expertise-item:hover .expertise-btn .expertise-icon {

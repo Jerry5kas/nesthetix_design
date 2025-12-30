@@ -73,6 +73,12 @@
         {{ $slot }}
     </main>
 
+    {{-- CTA Banner Section --}}
+    <x-cta-banner />
+
+    {{-- Contact Section --}}
+    <x-contact-section />
+
     {{-- Include Footer Partial --}}
     @include('components.partials.footer')
 

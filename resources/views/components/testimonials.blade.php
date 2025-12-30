@@ -135,7 +135,7 @@
                     class="testimonials-slider-track" 
                     :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
                 >
-                    @foreach($testimonials as $index => $testimonial)
+            @foreach($testimonials as $index => $testimonial)
                         <figure class="testimonial-figure">
                             <blockquote>
                                 {{ $testimonial['review'] }}
@@ -153,9 +153,9 @@
                             </div>
                         </figure>
                     @endforeach
-                </div>
-            </div>
-            
+                        </div>
+                    </div>
+
             {{-- Dots Indicator --}}
             <div class="testimonials-slider-dots">
                 @php
@@ -168,8 +168,8 @@
                         :class="{ 'active': currentIndex === {{ $i }} }"
                         aria-label="Go to slide {{ $i + 1 }}"
                     ></button>
-                @endfor
-            </div>
+                        @endfor
+                    </div>
         </div>
     </div>
 </section>
@@ -373,21 +373,22 @@ function testimonialsSlider() {
 
 .testimonial-figure:hover blockquote::before,
 .testimonial-figure:hover blockquote::after {
-    color: rgba(255, 255, 255, 0.4);
+    color: #C9A86C;
+    opacity: 0.8;
 }
 
 .testimonial-figure:hover img {
-    border-color: #ffffff;
+    border-color: #C9A86C;
     box-shadow: none;
     transform: scale(1.05);
 }
 
 .testimonial-figure:hover .author h5 {
-    color: #ffffff;
+    color: #C9A86C;
 }
 
 .testimonial-figure:hover .author h5 span {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
 }
 
 /* Slider Dots */

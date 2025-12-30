@@ -1178,7 +1178,7 @@ a:hover {
    PUBLIC FOOTER STYLES
    ============================================ */
 .public-footer {
-    background-color: var(--color-primary);
+    /* Background color is set via Tailwind classes in component */
     color: var(--color-text);
 }
 

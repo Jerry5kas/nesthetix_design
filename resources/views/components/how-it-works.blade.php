@@ -29,19 +29,19 @@
     ============================================ --}}
 
 <section 
-    class="how-it-works-section relative py-16 overflow-hidden bg-white"
+    class="how-it-works-section relative py-10 sm:py-12 overflow-hidden bg-white"
     aria-labelledby="how-it-works-heading"
     data-animate="fade-up"
 >
     {{-- Decorative Accent Line --}}
     <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10"></div>
     
-    <div class="relative max-w-7xl mx-auto z-20 px-6 lg:px-16">
+    <div class="relative max-w-6xl mx-auto z-20 px-6 lg:px-16">
         {{-- Header Section --}}
-        <div class="text-center max-w-4xl mx-auto mb-12" data-animate="fade-up">
+        <div class="text-center max-w-3xl mx-auto mb-8" data-animate="fade-up">
             {{-- Subheading Badge --}}
             <p 
-                class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-3 font-medium"
+                class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-2 font-medium"
                 style="font-family: 'Satoshi', sans-serif;"
                 data-animate="fade-up"
                 data-delay="0.1"
@@ -52,7 +52,7 @@
             {{-- Main Heading --}}
             <h2
                 id="how-it-works-heading"
-                class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight mb-4"
+                class="font-light text-2xl md:text-3xl lg:text-4xl text-theme-primary leading-tight mb-3"
                 style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
                 data-animate="fade-up"
                 data-delay="0.2"
@@ -62,14 +62,14 @@
 
             {{-- Primary Divider --}}
             <div 
-                class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-6"
+                class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-5"
                 data-animate="fade-up"
                 data-delay="0.3"
             ></div>
 
             {{-- Description --}}
             <p 
-                class="max-w-4xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed mb-8"
+                class="max-w-3xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed mb-6"
                 style="font-family: 'Satoshi', sans-serif;"
                 data-animate="fade-up"
                 data-delay="0.4"
@@ -140,13 +140,13 @@
 <style>
 /* How It Works Section */
 .how-it-works-section {
-    background: linear-gradient(to bottom, #ffffff, #fafafa);
+    background: #ffffff;
 }
 
 /* Steps Container */
 .how-it-works-container {
     position: relative;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
 }
 
 .steps-progress-wrapper {
@@ -157,29 +157,29 @@
 /* Progress Line */
 .progress-line {
     position: absolute;
-    top: 2.5rem;
+    top: 2rem;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 2px;
     background: #e5e7eb;
-    border-radius: 2px;
+    border-radius: 1px;
     z-index: 1;
 }
 
 .progress-line-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(to right, var(--color-primary, #9e0c49), #d4af37);
-    border-radius: 2px;
-    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 10px rgba(158, 12, 73, 0.3);
+    background: linear-gradient(to right, var(--color-primary, #7A0C68), #C9A86C);
+    border-radius: 1px;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: width;
 }
 
 /* Steps Container */
 .steps-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
     position: relative;
     z-index: 2;
 }
@@ -191,68 +191,66 @@
     align-items: center;
     text-align: center;
     position: relative;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.step-item.animate {
     opacity: 1;
     transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
 }
 
 .step-item:hover .step-content {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
 }
 
 .step-content {
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 /* Step Circle */
 .step-circle {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     background: #ffffff;
-    border: 4px solid #e5e7eb;
+    border: 3px solid #e5e7eb;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 1.5rem;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     z-index: 3;
     cursor: pointer;
+    will-change: transform, border-color, background;
 }
 
 .step-item:hover .step-circle {
     transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .step-item.active .step-circle {
-    border-color: var(--color-primary, #9e0c49);
-    background: var(--color-primary, #9e0c49);
-    transform: scale(1.15);
-    box-shadow: 0 8px 24px rgba(158, 12, 73, 0.5);
+    border-color: var(--color-primary, #7A0C68);
+    background: var(--color-primary, #7A0C68);
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(122, 12, 104, 0.3);
 }
 
 .step-item.completed .step-circle {
-    border-color: #d4af37;
-    background: #d4af37;
+    border-color: #C9A86C;
+    background: #C9A86C;
     transform: scale(1.05);
 }
 
 /* Step Number */
 .step-number {
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    color: var(--color-primary, #9e0c49);
+    color: var(--color-primary, #7A0C68);
     font-family: 'Satoshi', sans-serif;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    will-change: opacity, transform;
 }
 
 .step-item.active .step-number {
@@ -270,12 +268,13 @@
 /* Step Icon */
 .step-icon {
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     opacity: 0;
-    transform: scale(0.3) rotate(-180deg);
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: scale(0.4) rotate(-90deg);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     color: #ffffff;
+    will-change: opacity, transform;
 }
 
 .step-icon svg {
@@ -298,26 +297,26 @@
 
 .step-title {
     font-family: 'Canela Text Trial', serif;
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
     font-weight: 300;
     color: var(--color-primary, #1a1a1a);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
 }
 
 .step-item.active .step-title {
-    color: var(--color-primary, #9e0c49);
+    color: var(--color-primary, #7A0C68);
 }
 
 .step-item.completed .step-title {
-    color: #d4af37;
+    color: #C9A86C;
 }
 
 .step-description {
     font-family: 'Satoshi', sans-serif;
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.875rem;
+    line-height: 1.5;
     color: #666;
     margin: 0;
 }
@@ -330,7 +329,7 @@
     }
 
     .progress-line {
-        top: 2.5rem;
+        top: 2rem;
     }
 
     .step-item {
@@ -344,7 +343,7 @@
     }
 
     .step-circle {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 }
 
@@ -352,7 +351,7 @@
 @media (min-width: 768px) and (max-width: 1023px) {
     .steps-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        gap: 1.5rem;
     }
 
     .progress-line {
@@ -364,7 +363,7 @@
 @media (max-width: 767px) {
     .steps-container {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: 2rem;
     }
 
     .progress-line {
@@ -382,25 +381,10 @@
 }
 
 /* Animation on Scroll */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.step-item {
+    opacity: 1;
+    transform: translateY(0);
 }
-
-.step-item.animate {
-    animation: fadeInUp 0.6s ease forwards;
-}
-
-.step-item:nth-child(1) { animation-delay: 0.1s; }
-.step-item:nth-child(2) { animation-delay: 0.2s; }
-.step-item:nth-child(3) { animation-delay: 0.3s; }
-.step-item:nth-child(4) { animation-delay: 0.4s; }
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
@@ -414,128 +398,492 @@
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
+    'use strict';
+    
     const stepItems = document.querySelectorAll('.step-item');
     const progressFill = document.querySelector('.progress-line-fill');
     const section = document.querySelector('.how-it-works-section');
     
     if (!section || stepItems.length === 0) return;
     
-    let hasAnimated = false;
     let currentActiveStep = -1;
+    let hasAnimated = false;
+    let isAnimating = false;
+    let isAutoLoading = false;
+    let isHovering = false;
+    let hoverTargetStep = null;
+    let ticking = false;
+    let sectionBounds = null;
+    let animationTimeouts = [];
+    let progressAnimationFrame = null;
+    let currentProgressPercent = 0;
+    let progressCancelFn = null;
+    const STEP_INTERVAL = 2500; // 2.5 seconds between steps
     
-    // Smooth animation function
-    function animateStep(index) {
-        if (index >= stepItems.length) return;
-        
-        const step = stepItems[index];
-        step.classList.add('animate');
-        
-        // Update active/completed states
-        stepItems.forEach((item, i) => {
-            item.classList.remove('active', 'completed');
-            if (i < index) {
-                item.classList.add('completed');
-            } else if (i === index) {
-                item.classList.add('active');
-            }
-        });
-        
-        // Update progress line smoothly
-        if (progressFill) {
-            const progress = ((index + 1) / stepItems.length) * 100;
-            progressFill.style.width = progress + '%';
-        }
-        
-        // Continue to next step
-        if (index < stepItems.length - 1) {
-            setTimeout(() => {
-                animateStep(index + 1);
-            }, 400);
-        }
+    // Initialize all steps to default state
+    stepItems.forEach(item => {
+        item.classList.remove('active', 'completed');
+    });
+    if (progressFill) {
+        progressFill.style.width = '0%';
+        currentProgressPercent = 0;
     }
     
-    // Intersection Observer for initial animation
-    const observerOptions = {
-        threshold: 0.3,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !hasAnimated) {
-                hasAnimated = true;
-                // Start animation sequence
-                setTimeout(() => {
-                    animateStep(0);
-                }, 300);
-                observer.unobserve(entry.target);
+    // Get current progress from DOM
+    function getCurrentProgress() {
+        if (!progressFill) return 0;
+        const width = progressFill.style.width || '0%';
+        return parseFloat(width) || 0;
+    }
+    
+    // Get current step from progress
+    function getCurrentStepFromProgress() {
+        const segmentSize = 100 / stepItems.length;
+        const progress = getCurrentProgress();
+        const step = Math.floor(progress / segmentSize);
+        return Math.min(step, stepItems.length - 1);
+    }
+    
+    // Clear all animations and timeouts
+    function clearAnimations() {
+        animationTimeouts.forEach(timeout => clearTimeout(timeout));
+        animationTimeouts = [];
+        if (progressCancelFn) {
+            progressCancelFn();
+            progressCancelFn = null;
+        }
+        if (progressAnimationFrame) {
+            cancelAnimationFrame(progressAnimationFrame);
+            progressAnimationFrame = null;
+        }
+        isAnimating = false;
+    }
+    
+    // Pause auto-loading
+    function pauseAutoLoading() {
+        isAutoLoading = false;
+        clearAnimations();
+    }
+    
+    // Resume auto-loading from current position
+    function resumeAutoLoading() {
+        if (isHovering || !hasAnimated) return;
+        
+        const currentProgress = getCurrentProgress();
+        const segmentSize = 100 / stepItems.length;
+        let currentStep = getCurrentStepFromProgress();
+        
+        // If progress is complete, don't resume
+        if (currentProgress >= 100) {
+            isAutoLoading = false;
+            return;
+        }
+        
+        // If we're at the last step and it's complete, don't resume
+        if (currentStep >= stepItems.length - 1) {
+            const lastStepStart = (stepItems.length - 1) * segmentSize;
+            if (currentProgress >= lastStepStart + segmentSize) {
+                isAutoLoading = false;
+                return;
+            }
+        }
+        
+        // If we're in the middle of a segment, continue from next step
+        const currentSegmentStart = currentStep * segmentSize;
+        const currentSegmentEnd = (currentStep + 1) * segmentSize;
+        
+        // If we're more than halfway through current segment, start from next step
+        if (currentProgress > (currentSegmentStart + currentSegmentEnd) / 2 && currentStep < stepItems.length - 1) {
+            currentStep = currentStep + 1;
+        }
+        
+        // Continue from calculated step
+        isAutoLoading = true;
+        continueAutoLoading(currentStep);
+    }
+    
+    // Reset all steps to default state
+    function resetSteps() {
+        stepItems.forEach(item => {
+            item.classList.remove('active', 'completed');
+        });
+        if (progressFill) {
+            progressFill.style.width = '0%';
+        }
+        currentActiveStep = -1;
+        currentProgressPercent = 0;
+    }
+    
+    // Cache section bounds for performance
+    function updateSectionBounds() {
+        const rect = section.getBoundingClientRect();
+        const scrollY = window.scrollY || window.pageYOffset;
+        sectionBounds = {
+            top: rect.top + scrollY,
+            height: rect.height,
+            windowHeight: window.innerHeight
+        };
+    }
+    
+    // Animate progress bar segment by segment (cancellable)
+    function animateProgressBar(fromPercent, toPercent, duration, callback) {
+        if (!progressFill) {
+            if (callback) callback();
+            return null;
+        }
+        
+        // Cancel any existing animation
+        if (progressCancelFn) {
+            progressCancelFn();
+        }
+        
+        const startTime = Date.now();
+        const startPercent = fromPercent;
+        const difference = toPercent - fromPercent;
+        let cancelled = false;
+        
+        function updateProgress() {
+            if (cancelled) return;
+            
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const currentPercent = startPercent + (difference * progress);
+            progressFill.style.width = currentPercent + '%';
+            currentProgressPercent = currentPercent;
+            
+            if (progress < 1) {
+                progressAnimationFrame = requestAnimationFrame(updateProgress);
+            } else {
+                progressAnimationFrame = null;
+                if (callback) callback();
+            }
+        }
+        
+        // Return cancel function
+        const cancel = () => {
+            cancelled = true;
+            if (progressAnimationFrame) {
+                cancelAnimationFrame(progressAnimationFrame);
+                progressAnimationFrame = null;
+            }
+        };
+        
+        updateProgress();
+        return cancel;
+    }
+    
+    // Continue auto-loading from a specific step
+    function continueAutoLoading(startIndex) {
+        if (!isAutoLoading || isHovering) return;
+        
+        isAnimating = true;
+        
+        function animateStepSegment(index) {
+            // Check if we should stop (hover started or auto-loading paused)
+            if (!isAutoLoading || isHovering || index >= stepItems.length) {
+                isAnimating = false;
+                return;
+            }
+            
+            // Mark previous steps as completed
+            stepItems.forEach((item, i) => {
+                if (i < index) {
+                    item.classList.remove('active');
+                    item.classList.add('completed');
+                } else if (i === index) {
+                    item.classList.remove('completed');
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active', 'completed');
+                }
+            });
+            
+            // Calculate progress bar segments
+            const segmentSize = 100 / stepItems.length;
+            const fromPercent = index * segmentSize;
+            const toPercent = (index + 1) * segmentSize;
+            
+            // Animate progress bar for this step segment
+            progressCancelFn = animateProgressBar(fromPercent, toPercent, STEP_INTERVAL, () => {
+                currentActiveStep = index;
+                progressCancelFn = null;
+                
+                // Continue to next step after progress completes
+                if (isAutoLoading && !isHovering && index < stepItems.length - 1) {
+                    const timeout = setTimeout(() => {
+                        animateStepSegment(index + 1);
+                    }, 100);
+                    animationTimeouts.push(timeout);
+                } else {
+                    isAnimating = false;
+                    isAutoLoading = false;
+                }
+            });
+        }
+        
+        // Start animation from specified step
+        animateStepSegment(startIndex);
+    }
+    
+    // Animate to hovered step (pauses auto-loading)
+    function animateToHoveredStep(targetIndex) {
+        pauseAutoLoading();
+        isHovering = true;
+        hoverTargetStep = targetIndex;
+        isAnimating = true;
+        
+        // Get actual current position from DOM
+        const currentProgress = getCurrentProgress();
+        const segmentSize = 100 / stepItems.length;
+        const actualCurrentStep = getCurrentStepFromProgress();
+        
+        // Determine starting step based on actual progress
+        let startIndex = actualCurrentStep;
+        
+        // If we're in the middle of a segment, use current progress
+        const currentSegmentStart = actualCurrentStep * segmentSize;
+        const currentSegmentEnd = (actualCurrentStep + 1) * segmentSize;
+        
+        // If target is before current, jump to it
+        if (targetIndex < actualCurrentStep) {
+            stepItems.forEach((item, i) => {
+                item.classList.remove('active', 'completed');
+                if (i < targetIndex) {
+                    item.classList.add('completed');
+                } else if (i === targetIndex) {
+                    item.classList.add('active');
+                }
+            });
+            if (progressFill) {
+                const progressPercent = ((targetIndex + 1) / stepItems.length) * 100;
+                progressFill.style.width = progressPercent + '%';
+                currentProgressPercent = progressPercent;
+            }
+            currentActiveStep = targetIndex;
+            isAnimating = false;
+            return;
+        }
+        
+        // If target equals current and segment is complete, we're done
+        if (targetIndex === actualCurrentStep) {
+            const currentSegmentStart = actualCurrentStep * segmentSize;
+            const currentSegmentEnd = (actualCurrentStep + 1) * segmentSize;
+            
+            // If segment is already complete, just ensure state is correct
+            if (currentProgress >= currentSegmentEnd) {
+                stepItems.forEach((item, i) => {
+                    item.classList.remove('active', 'completed');
+                    if (i < targetIndex) {
+                        item.classList.add('completed');
+                    } else if (i === targetIndex) {
+                        item.classList.add('active');
+                    }
+                });
+                isAnimating = false;
+                return;
+            }
+            // Otherwise, continue to complete the segment
+        }
+        
+        // Continue from actual current step to target (but don't exceed target)
+        function animateStepSegment(index) {
+            // Stop if we've reached or exceeded target, or hover ended
+            if (!isHovering || index > targetIndex || index >= stepItems.length) {
+                isAnimating = false;
+                return;
+            }
+            
+            // Mark previous steps as completed
+            stepItems.forEach((item, i) => {
+                if (i < index) {
+                    item.classList.remove('active');
+                    item.classList.add('completed');
+                } else if (i === index) {
+                    item.classList.remove('completed');
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active', 'completed');
+                }
+            });
+            
+            // Calculate progress bar segments
+            const fromPercent = index * segmentSize;
+            const toPercent = (index + 1) * segmentSize;
+            
+            // Use actual current progress if starting mid-segment
+            const actualFromPercent = (index === startIndex && currentProgress > fromPercent) 
+                ? currentProgress 
+                : fromPercent;
+            
+            // Animate progress bar for this step segment
+            progressCancelFn = animateProgressBar(actualFromPercent, toPercent, STEP_INTERVAL, () => {
+                currentActiveStep = index;
+                progressCancelFn = null;
+                
+                // Continue to next step after progress completes (but don't exceed target)
+                if (isHovering && index < targetIndex) {
+                    const timeout = setTimeout(() => {
+                        animateStepSegment(index + 1);
+                    }, 100);
+                    animationTimeouts.push(timeout);
+                } else {
+                    // Reached target, stop
+                    isAnimating = false;
+                }
+            });
+        }
+        
+        // Start animation from actual current position
+        animateStepSegment(startIndex);
+    }
+    
+    // Sequential step animation (for initial load)
+    function animateStepInitial(index) {
+        if (index >= stepItems.length) {
+            isAnimating = false;
+            isAutoLoading = false;
+            return;
+        }
+        
+        isAutoLoading = true;
+        
+        // Mark previous steps as completed
+        stepItems.forEach((item, i) => {
+            if (i < index) {
+                item.classList.remove('active');
+                item.classList.add('completed');
+            } else if (i === index) {
+                item.classList.remove('completed');
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active', 'completed');
             }
         });
-    }, observerOptions);
-
-    observer.observe(section);
-
-    // Scroll-based progress update (smooth and seamless)
-    let rafId = null;
-    let lastScrollY = window.scrollY;
-    
-    function updateProgressOnScroll() {
-        if (rafId) return;
         
-        rafId = requestAnimationFrame(() => {
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
+        // Calculate progress bar segments
+        const segmentSize = 100 / stepItems.length;
+        const fromPercent = index * segmentSize;
+        const toPercent = (index + 1) * segmentSize;
+        
+        // Animate progress bar for this step segment
+        progressCancelFn = animateProgressBar(fromPercent, toPercent, STEP_INTERVAL, () => {
+            currentActiveStep = index;
+            progressCancelFn = null;
             
-            // Calculate scroll progress through the section
-            const scrollStart = sectionTop - windowHeight * 0.5;
-            const scrollEnd = sectionTop + sectionHeight - windowHeight * 0.5;
+            // Continue to next step after progress completes
+            if (isAutoLoading && !isHovering && index < stepItems.length - 1) {
+                const timeout = setTimeout(() => {
+                    animateStepInitial(index + 1);
+                }, 100);
+                animationTimeouts.push(timeout);
+            } else {
+                isAnimating = false;
+                isAutoLoading = false;
+            }
+        });
+    }
+    
+    // Optimized scroll handler (only after initial animation)
+    function updateProgressOnScroll() {
+        if (ticking || isAnimating || !hasAnimated) return;
+        
+        ticking = true;
+        requestAnimationFrame(() => {
+            if (!sectionBounds) updateSectionBounds();
+            
+            const scrollY = window.scrollY || window.pageYOffset;
+            const windowHeight = sectionBounds.windowHeight;
+            const sectionTop = sectionBounds.top;
+            const sectionHeight = sectionBounds.height;
+            
+            // Calculate scroll progress
+            const scrollStart = sectionTop - windowHeight * 0.6;
+            const scrollEnd = sectionTop + sectionHeight - windowHeight * 0.4;
             const scrollRange = scrollEnd - scrollStart;
             
-            if (scrollY >= scrollStart && scrollY <= scrollEnd) {
-                const progress = (scrollY - scrollStart) / scrollRange;
-                const stepProgress = Math.min(Math.max(progress, 0), 1);
-                const currentStepIndex = Math.floor(stepProgress * stepItems.length);
+            if (scrollY >= scrollStart && scrollY <= scrollEnd && scrollRange > 0) {
+                const progress = Math.min(Math.max((scrollY - scrollStart) / scrollRange, 0), 1);
+                const stepIndex = Math.min(Math.floor(progress * stepItems.length), stepItems.length - 1);
                 
                 // Only update if step changed
-                if (currentStepIndex !== currentActiveStep && currentStepIndex >= 0 && currentStepIndex < stepItems.length) {
-                    currentActiveStep = currentStepIndex;
+                if (stepIndex !== currentActiveStep && stepIndex >= 0) {
+                    currentActiveStep = stepIndex;
                     
-                    // Update states smoothly
+                    // Batch DOM updates
                     stepItems.forEach((item, i) => {
                         item.classList.remove('active', 'completed');
-                        if (i < currentStepIndex) {
+                        if (i < stepIndex) {
                             item.classList.add('completed');
-                        } else if (i === currentStepIndex) {
+                        } else if (i === stepIndex) {
                             item.classList.add('active');
                         }
                     });
                     
                     // Update progress line
                     if (progressFill) {
-                        const progressPercent = ((currentStepIndex + 1) / stepItems.length) * 100;
+                        const progressPercent = ((stepIndex + 1) / stepItems.length) * 100;
                         progressFill.style.width = progressPercent + '%';
                     }
                 }
             }
             
-            rafId = null;
+            ticking = false;
         });
     }
     
-    // Throttled scroll listener
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
-        scrollTimeout = setTimeout(updateProgressOnScroll, 16);
-    }, { passive: true });
+    // Optimized event listeners
+    let resizeTimeout;
+    function handleResize() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            sectionBounds = null;
+            if (hasAnimated) updateProgressOnScroll();
+        }, 150);
+    }
     
-    // Initial check
-    updateProgressOnScroll();
-});
+    // Use passive listeners for better performance
+    window.addEventListener('scroll', updateProgressOnScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
+    
+    // Add hover event listeners to each step
+    stepItems.forEach((stepItem, index) => {
+        stepItem.addEventListener('mouseenter', () => {
+            animateToHoveredStep(index);
+        });
+        
+        stepItem.addEventListener('mouseleave', () => {
+            isHovering = false;
+            hoverTargetStep = null;
+            // Resume auto-loading from current position
+            resumeAutoLoading();
+        });
+    });
+    
+    // Intersection Observer for initial animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                hasAnimated = true;
+                isAnimating = true;
+                
+                // Start sequential animation
+                setTimeout(() => {
+                    animateStepInitial(0);
+                }, 300);
+                
+                observer.unobserve(entry.target);
+            } else if (entry.isIntersecting && hasAnimated) {
+                // Update on scroll after animation
+                updateProgressOnScroll();
+            }
+        });
+    }, { threshold: 0.2, rootMargin: '100px' });
+    
+    observer.observe(section);
+    
+    // Initial bounds calculation
+    updateSectionBounds();
+})();
 </script>
 

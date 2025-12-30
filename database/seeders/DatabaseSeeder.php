@@ -24,9 +24,10 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Seed theme settings
+        // Seed theme settings and blogs
         $this->call([
             ThemeSettingsSeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }
