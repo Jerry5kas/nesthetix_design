@@ -149,7 +149,7 @@
     </section>
 
     {{-- Expertise Section --}}
-    <x-expertise-section />
+    <x-expertise />
 
     {{-- Testimonials Section --}}
     <x-testimonials />
