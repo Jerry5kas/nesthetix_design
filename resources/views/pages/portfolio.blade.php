@@ -49,14 +49,13 @@
 
     {{-- Portfolio Container --}}
     <div x-data="portfolioGallery()" class="min-h-screen bg-white">
-        {{-- Gallery Grid (Shuffled CSS Grid Layout) --}}
-        <section class="py-12 px-6 lg:px-16">
-            <div class="max-w-7xl mx-auto">
-                <div class="shuffled-grid gap-5">
+        {{-- Gallery Grid (Masonry CSS Grid Layout) --}}
+        <section class="py-12 w-full">
+            <div class="portfolio-grid w-full">
                     <template x-for="(item, index) in filteredItems" :key="item.id">
                         <div 
-                            :class="getGridAreaClass(index)"
                             class="portfolio-item group cursor-pointer"
+                            :style="getGridStyle(index)"
                             @click="openLightbox(item)"
                         >
                             <div class="relative w-full h-full overflow-hidden rounded-lg bg-gray-200">
@@ -93,17 +92,16 @@
                             </div>
                         </div>
                     </template>
-                </div>
+            </div>
 
-                {{-- Empty State --}}
-                <div 
-                    x-show="filteredItems.length === 0"
-                    class="text-center py-32"
-                >
-                    <p class="text-gray-500 text-lg" style="font-family: 'Satoshi', sans-serif;">
-                        No projects found in this category.
-                    </p>
-                </div>
+            {{-- Empty State --}}
+            <div 
+                x-show="filteredItems.length === 0"
+                class="text-center py-32"
+            >
+                <p class="text-gray-500 text-lg" style="font-family: 'Satoshi', sans-serif;">
+                    No projects found in this category.
+                </p>
             </div>
         </section>
 
@@ -179,23 +177,26 @@ function portfolioGallery() {
         lightboxImage: null,
         lightboxIndex: 0,
         
-        // Grid area classes in sequence (15 patterns that repeat for better coverage)
-        gridAreas: [
-            'grid-area-1',  // Column 1, span 2 rows
-            'grid-area-2',  // Column 2, span 1 row
-            'grid-area-3',  // Column 3, span 1 row
-            'grid-area-4',  // Column 1, span 2 rows
-            'grid-area-5',  // Column 2, span 1 row
-            'grid-area-6',  // Column 3, span 2 rows
-            'grid-area-7',  // Column 2, span 1 row
-            'grid-area-8',  // Column 2, span 1 row
-            'grid-area-9',  // Column 3, span 2 rows
-            'grid-area-10', // Column 2, span 1 row
-            'grid-area-11', // Column 1, span 1 row
-            'grid-area-12', // Column 4, span 2 rows
-            'grid-area-13', // Column 5, span 1 row
-            'grid-area-14', // Column 4, span 1 row
-            'grid-area-15', // Column 5, span 2 rows
+        // Grid position patterns (17-item cycle that repeats dynamically)
+        // Based on the exact CSS grid pattern provided
+        gridPatterns: [
+            { colSpan: 2, colStart: 1, rowSpan: 1, rowStart: 1 },      // div1: grid-column: span 2; (starts at 1, spans 2)
+            { colSpan: 1, colStart: 3, rowSpan: 1, rowStart: 1 },      // div2: grid-column-start: 3; (spans 1)
+            { colSpan: 1, colStart: 4, rowSpan: 1, rowStart: 1 },      // div3: grid-column-start: 4; (spans 1)
+            { colSpan: 1, colStart: 5, rowSpan: 2, rowStart: 1 },      // div4: grid-row: span 2; grid-column-start: 5;
+            { colSpan: 1, colStart: 1, rowSpan: 2, rowStart: 4 },      // div5: grid-row: span 2; grid-column-start: 1; grid-row-start: 4;
+            { colSpan: 2, colStart: 3, rowSpan: 1, rowStart: 2 },      // div6: grid-column: span 2; grid-column-start: 3; grid-row-start: 2;
+            { colSpan: 1, colStart: 1, rowSpan: 1, rowStart: 2 },      // div7: grid-column-start: 1; grid-row-start: 2;
+            { colSpan: 1, colStart: 1, rowSpan: 1, rowStart: 3 },      // div8: grid-column-start: 1; grid-row-start: 3;
+            { colSpan: 1, colStart: 2, rowSpan: 1, rowStart: 5 },      // div9: grid-column-start: 2; grid-row-start: 5;
+            { colSpan: 1, colStart: 3, rowSpan: 1, rowStart: 5 },      // div10: grid-column-start: 3; grid-row-start: 5;
+            { colSpan: 2, colStart: 4, rowSpan: 1, rowStart: 5 },      // div11: grid-column: span 2; grid-column-start: 4; grid-row-start: 5;
+            { colSpan: 1, colStart: 5, rowSpan: 1, rowStart: 3 },      // div12: grid-column-start: 5; grid-row-start: 3;
+            { colSpan: 1, colStart: 5, rowSpan: 1, rowStart: 4 },      // div13: grid-column-start: 5; grid-row-start: 4;
+            { colSpan: 2, colStart: 2, rowSpan: 1, rowStart: 4 },      // div14: grid-column: span 2; grid-column-start: 2; grid-row-start: 4;
+            { colSpan: 1, colStart: 2, rowSpan: 2, rowStart: 2 },      // div15: grid-row: span 2; grid-column-start: 2; grid-row-start: 2;
+            { colSpan: 1, colStart: 4, rowSpan: 2, rowStart: 3 },      // div16: grid-row: span 2; grid-column-start: 4; grid-row-start: 3;
+            { colSpan: 1, colStart: 3, rowSpan: 1, rowStart: 3 },     // div17: grid-column-start: 3; grid-row-start: 3;
         ],
 
         portfolioItems: [
@@ -214,14 +215,34 @@ function portfolioGallery() {
             { id: 13, category: 'tv-units', title: 'Wall Unit Design', image: 'https://ik.imagekit.io/AthaConstruction/assets/pexels-ansar-muhammad-380085065-23916862_694fb6c25a2ec1.73279304_WM5zT6f4f.jpg', description: 'Stylish entertainment wall unit' },
             { id: 14, category: 'pooja-room', title: 'Modern Pooja Space', image: 'https://ik.imagekit.io/AthaConstruction/assets/dining-room_694bad4ae18538.89672987_N_PzMlACP.jpg', description: 'Contemporary prayer room design' },
             { id: 15, category: 'others', title: 'Home Office', image: 'https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-6758775_694fb6266e8f29.85505953_j20NcjqS2.jpg', description: 'Productive workspace design' },
+            { id: 16, category: 'living-room', title: 'Luxury Family Lounge', image: 'https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-7535051_694fc1910371b6.19892859_OG657SCTl.jpg', description: 'Sophisticated entertainment area with premium furnishings' },
+            { id: 17, category: 'modular-kitchen', title: 'Island Kitchen Design', image: 'https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg', description: 'Spacious kitchen with central island and modern amenities' },
+            // { id: 18, category: 'bedroom', title: 'Luxury Bedroom Retreat', image: 'https://ik.imagekit.io/AthaConstruction/assets/dining-room_694bad4ae18538.89672987_N_PzMlACP.jpg', description: 'Opulent bedroom with elegant furnishings and premium finishes' },
         ],
 
         get filteredItems() {
             return this.portfolioItems;
         },
 
-        getGridAreaClass(index) {
-            return this.gridAreas[index % this.gridAreas.length];
+        getGridStyle(index) {
+            const pattern = this.gridPatterns[index % this.gridPatterns.length];
+            const cycle = Math.floor(index / this.gridPatterns.length);
+            const baseRow = cycle * 5; // Each cycle adds 5 rows (pattern uses rows 1-5)
+            const actualRowStart = baseRow + pattern.rowStart;
+            
+            // Build grid-column style - use shorthand: start / span count
+            const colSpan = pattern.colSpan || 1;
+            const colStart = pattern.colStart;
+            const gridColumn = `${colStart} / span ${colSpan}`;
+            
+            // Build grid-row style - use shorthand: start / span count
+            const rowSpan = pattern.rowSpan || 1;
+            const gridRow = `${actualRowStart} / span ${rowSpan}`;
+            
+            return {
+                'grid-column': gridColumn,
+                'grid-row': gridRow,
+            };
         },
 
         openLightbox(item) {
@@ -277,38 +298,22 @@ function portfolioGallery() {
 </script>
 
 <style>
-/* Shuffled Grid Layout - Using CSS Grid with auto-placement */
-.shuffled-grid {
+/* Portfolio Grid Layout - 5 Column Masonry Grid */
+.portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(300px, auto);
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: minmax(250px, auto);
+    gap: 4px;
+    width: 100%;
+    padding: 0;
 }
-
-/* Grid Area Definitions - Based on the provided pattern */
-/* Pattern repeats every 11 items with varying row spans */
-.grid-area-1 { grid-row: span 2; }  /* Tall item - spans 2 rows */
-.grid-area-2 { grid-row: span 1; }  /* Regular item */
-.grid-area-3 { grid-row: span 1; }  /* Regular item */
-.grid-area-4 { grid-row: span 2; }  /* Tall item */
-.grid-area-5 { grid-row: span 1; }  /* Regular item */
-.grid-area-6 { grid-row: span 2; }  /* Tall item */
-.grid-area-7 { grid-row: span 1; }  /* Regular item */
-.grid-area-8 { grid-row: span 1; }  /* Regular item */
-.grid-area-9 { grid-row: span 2; }  /* Tall item */
-.grid-area-10 { grid-row: span 1; } /* Regular item */
-.grid-area-11 { grid-row: span 1; } /* Regular item */
-
-/* Extended pattern for items beyond 11 */
-.grid-area-12 { grid-row: span 2; }
-.grid-area-13 { grid-row: span 1; }
-.grid-area-14 { grid-row: span 1; }
-.grid-area-15 { grid-row: span 2; }
 
 .portfolio-item {
     will-change: transform;
     animation: fadeIn 0.4s ease-in;
     position: relative;
     overflow: hidden;
+    min-height: 250px;
 }
 
 .portfolio-item:hover {
@@ -336,37 +341,33 @@ function portfolioGallery() {
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-    .shuffled-grid {
-        grid-template-columns: repeat(3, 1fr);
-        grid-auto-rows: minmax(250px, auto);
+@media (max-width: 1280px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(220px, auto);
     }
-    
-    /* Simplified: all items same height on tablets */
-    .grid-area-1,
-    .grid-area-2,
-    .grid-area-3,
-    .grid-area-4,
-    .grid-area-5,
-    .grid-area-6,
-    .grid-area-7,
-    .grid-area-8,
-    .grid-area-9,
-    .grid-area-10,
-    .grid-area-11,
-    .grid-area-12,
-    .grid-area-13,
-    .grid-area-14,
-    .grid-area-15 {
-        grid-row: span 1;
+}
+
+@media (max-width: 1024px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(200px, auto);
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(180px, auto);
+        gap: 6px;
     }
 }
 
 @media (max-width: 640px) {
-    .shuffled-grid {
+    .portfolio-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: minmax(200px, auto);
-        gap: 0.5rem;
+        grid-auto-rows: minmax(150px, auto);
+        gap: 4px;
     }
 }
 </style>
