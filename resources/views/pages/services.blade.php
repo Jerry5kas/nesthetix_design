@@ -4,12 +4,22 @@
     canonical="{{ url('/services') }}">
     
     {{-- Hero Section --}}
-    <section class="relative py-20 px-6 lg:px-16 overflow-hidden bg-gradient-to-b from-white to-gray-50" data-animate="fade-up">
-        <div class="max-w-7xl mx-auto">
+    <section class="relative py-12 px-6 lg:px-16 overflow-hidden hero-banner-section" data-animate="fade-up">
+        {{-- Background Image --}}
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-7535051_694fc1910371b6.19892859_OG657SCTl.jpg" 
+                alt="Interior Design Services"
+                class="w-full h-full object-cover"
+                loading="eager"
+            />
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto">
             <div class="text-center max-w-4xl mx-auto">
                 {{-- Subheading Badge --}}
                 <p 
-                    class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-3 font-medium"
+                    class="text-[#D4AF37] tracking-[0.3em] uppercase text-xs mb-3 font-medium"
                     style="font-family: 'Satoshi', sans-serif;"
                     data-animate="fade-up"
                     data-delay="0.1"
@@ -19,7 +29,7 @@
 
                 {{-- Main Heading --}}
                 <h1
-                    class="font-light text-4xl md:text-5xl lg:text-6xl text-theme-primary leading-tight mb-4"
+                    class="font-light text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-4"
                     style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
                     data-animate="fade-up"
                     data-delay="0.2"
@@ -29,14 +39,14 @@
 
                 {{-- Primary Divider --}}
                 <div 
-                    class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-6"
+                    class="w-20 h-px bg-gradient-to-r from-[#D4AF37] to-transparent mx-auto mb-6"
                     data-animate="fade-up"
                     data-delay="0.3"
                 ></div>
 
                 {{-- Description --}}
                 <p 
-                    class="max-w-4xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed mb-8"
+                    class="max-w-4xl mx-auto text-white text-base md:text-lg leading-relaxed mb-8"
                     style="font-family: 'Satoshi', sans-serif;"
                     data-animate="fade-up"
                     data-delay="0.4"
@@ -54,7 +64,7 @@
                 {{-- Service Navigation Tabs --}}
                 <div class="service-tabs mb-12">
                     <div class="flex flex-wrap justify-center gap-3 md:gap-4">
-                        <template x-for="(service, index) in services" :key="index">
+                <template x-for="(service, index) in services" :key="index">
                             <button
                                 @click="activeService = index"
                                 :class="activeService === index 
@@ -87,9 +97,9 @@
                                 ></h2>
                                 <p 
                                     class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6"
-                                    style="font-family: 'Satoshi', sans-serif;"
-                                    x-text="service.shortDescription"
-                                ></p>
+                                style="font-family: 'Satoshi', sans-serif;"
+                                x-text="service.shortDescription"
+                            ></p>
                                 <div class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent"></div>
                             </div>
 
@@ -127,7 +137,7 @@
                                     Scope of <span x-text="service.title"></span>
                                 </h3>
                                 
-                                <div class="space-y-8">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     <template x-for="(scopeItem, scopeIndex) in service.scope" :key="scopeIndex">
                                         <div class="scope-category">
                                             <h4 
@@ -166,19 +176,19 @@
                                         <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
                                             <svg class="w-6 h-6 text-[var(--color-primary)] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                            </svg>
+                                        </svg>
                                             <span 
                                                 class="text-gray-700 font-medium"
                                                 style="font-family: 'Satoshi', sans-serif;"
                                                 x-text="define"
                                             ></span>
-                                        </div>
-                                    </template>
+                                    </div>
+                                </template>
                                 </div>
                             </div>
                         </div>
                     </template>
-                </div>
+                    </div>
             </div>
         </div>
     </section>
@@ -989,6 +999,25 @@ function servicesPage() {
 </script>
 
 <style>
+/* Hero Banner Section Styles */
+.hero-banner-section {
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-banner-section .absolute img {
+    filter: brightness(0.85);
+}
+
+@media (max-width: 768px) {
+    .hero-banner-section {
+        min-height: 35vh;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+}
+
 .services-page-container {
     min-height: 60vh;
 }
@@ -1039,6 +1068,9 @@ function servicesPage() {
     padding: 2rem;
     border-radius: 0.75rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .scope-category ul {

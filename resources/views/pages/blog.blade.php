@@ -4,12 +4,22 @@
     canonical="{{ url('/blog') }}">
     
     {{-- Hero Section --}}
-    <section class="relative py-20 px-6 lg:px-16 overflow-hidden bg-gradient-to-b from-white to-gray-50" data-animate="fade-up">
-        <div class="max-w-7xl mx-auto">
+    <section class="relative py-12 px-6 lg:px-16 overflow-hidden hero-banner-section" data-animate="fade-up">
+        {{-- Background Image --}}
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://ik.imagekit.io/AthaConstruction/assets/pexels-ansar-muhammad-380085065-23916862_694fb6c25a2ec1.73279304_WM5zT6f4f.jpg" 
+                alt="Interior Design Blog"
+                class="w-full h-full object-cover"
+                loading="eager"
+            />
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto">
             <div class="text-center max-w-4xl mx-auto">
                 {{-- Subheading Badge --}}
                 <p 
-                    class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-3 font-medium"
+                    class="text-[#D4AF37] tracking-[0.3em] uppercase text-xs mb-3 font-medium"
                     style="font-family: 'Satoshi', sans-serif;"
                     data-animate="fade-up"
                     data-delay="0.1"
@@ -19,7 +29,7 @@
 
                 {{-- Main Heading --}}
                 <h1
-                    class="font-light text-4xl md:text-5xl lg:text-6xl text-theme-primary leading-tight mb-4"
+                    class="font-light text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-4"
                     style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
                     data-animate="fade-up"
                     data-delay="0.2"
@@ -29,14 +39,14 @@
 
                 {{-- Primary Divider --}}
                 <div 
-                    class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-6"
+                    class="w-20 h-px bg-gradient-to-r from-[#D4AF37] to-transparent mx-auto mb-6"
                     data-animate="fade-up"
                     data-delay="0.3"
                 ></div>
 
                 {{-- Description --}}
                 <p 
-                    class="max-w-4xl mx-auto text-gray-700 text-base md:text-lg leading-relaxed mb-8"
+                    class="max-w-4xl mx-auto text-white text-base md:text-lg leading-relaxed mb-8"
                     style="font-family: 'Satoshi', sans-serif;"
                     data-animate="fade-up"
                     data-delay="0.4"
@@ -290,6 +300,25 @@
         background-color: #f3f4f6;
         border-color: #e5e7eb;
         cursor: not-allowed;
+    }
+
+    /* Hero Banner Section Styles */
+    .hero-banner-section {
+        min-height: 40vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-banner-section .absolute img {
+        filter: brightness(0.85);
+    }
+
+    @media (max-width: 768px) {
+        .hero-banner-section {
+            min-height: 35vh;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
     }
 </style>
 

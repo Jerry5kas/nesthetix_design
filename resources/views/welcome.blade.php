@@ -4,7 +4,7 @@
     canonical="{{ url('/') }}">
     
     {{-- Hero Section --}}
-    <x-hero />
+    <x-hero-video />
 
     {{-- Trust Strip --}}
     <x-trust-strip />

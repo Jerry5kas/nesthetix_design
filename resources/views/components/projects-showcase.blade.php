@@ -67,50 +67,50 @@
     <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-20"></div>
 
     <div class="relative max-w-7xl mx-auto z-30 w-full">
-        <div class="flex flex-col items-end justify-center pb-0 mb-0">
-        {{-- Card Stack Container --}}
-        <div class="projects-cards">
-            {{-- Heading Section --}}
-            <div class="projects-heading space-y-5">
-                @if($subheading)
-                <div>
-                    <p 
-                        class="text-theme-muted tracking-[0.3em] uppercase text-xs font-medium"
-                        style="font-family: 'Satoshi', sans-serif;"
-                    >
-                        {{ $subheading }}
-                    </p>
-                    </div>
-                @endif
-                @if($heading)
-                <div>
-                    <h2 
-                        class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight"
-                        style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
-                        id="projects-showcase"
-                    >
-                        {{ $heading }}
-                    </h2>
-                    </div>
-                @endif
-                {{-- Primary Divider --}}
-                <div>
+        {{-- Heading Section --}}
+        <div class="projects-heading space-y-5">
+            @if($subheading)
+            <div>
+                <p 
+                    class="text-theme-muted tracking-[0.3em] uppercase text-xs font-medium"
+                    style="font-family: 'Satoshi', sans-serif;"
+                >
+                    {{ $subheading }}
+                </p>
+            </div>
+            @endif
+            @if($heading)
+            <div>
+                <h2 
+                    class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight"
+                    style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
+                    id="projects-showcase"
+                >
+                    {{ $heading }}
+                </h2>
+            </div>
+            @endif
+            {{-- Primary Divider --}}
+            <div>
                 <div 
                     class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto"
                 ></div>
-                </div>
-                            @if($description)
-                    <div>
-                    <p 
-                        class="max-w-4xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed"
-                        style="font-family: 'Satoshi', sans-serif;"
-                    >
-                        {{ $description }}
-                    </p>
-                    </div>
-                @endif
             </div>
-            
+            @if($description)
+            <div>
+                <p 
+                    class="max-w-4xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed"
+                    style="font-family: 'Satoshi', sans-serif;"
+                >
+                    {{ $description }}
+                </p>
+            </div>
+            @endif
+        </div>
+        
+        <div class="flex flex-col items-end justify-center pb-0 mb-0">
+        {{-- Card Stack Container --}}
+        <div class="projects-cards">
             @foreach($projects as $index => $project)
                 <input 
                     type="radio" 
@@ -278,13 +278,11 @@ document.addEventListener('DOMContentLoaded', function() {
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 1rem;
-    padding-top: 1.5rem;
-    padding-bottom: 0.5rem;
+    margin: 0 auto 2rem;
+    padding: 2rem 1rem 1rem;
     pointer-events: auto;
-    grid-row: 1;
-    grid-column: 1;
     gap: 1.5rem;
+    z-index: 10;
 }
 
 /* Cards Container */
@@ -312,6 +310,11 @@ document.addEventListener('DOMContentLoaded', function() {
     .projects-cards {
         min-height: auto;
         height: auto;
+    }
+    
+    .projects-showcase-section {
+        min-height: 90vh;
+        height: 90vh;
     }
 }
 
@@ -344,18 +347,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     .projects-heading {
-        position: absolute;
-        top: calc(var(--img-w) * 0.1);
-        left: 50%;
-        transform: translateX(-50%);
+        position: relative;
+        margin: 0 auto 3rem;
+        padding: 2.5rem 1.5rem 1.5rem;
         max-width: 900px;
-        margin-bottom: 0;
-        padding: 2rem 1.5rem 1rem 1.5rem;
-        z-index: 100;
-        pointer-events: none;
-        grid-row: 1;
-        grid-column: 1;
-        background: transparent;
         gap: 1.5rem;
     }
     
@@ -374,8 +369,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* Card Image - Left Side */
 .projects-card-img {
-    width: 320px;
-    height: 250px;
+    width: 260px;
+    height: 200px;
     aspect-ratio: auto;
     rotate: var(--angle, 0deg);
     border-radius: 10px;
@@ -674,8 +669,8 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Responsive Adjustments */
 @media (max-width: 600px) {
     .projects-showcase-section {
-        height: auto;
-        min-height: auto;
+        height: 100vh;
+        min-height: 100vh;
         background-attachment: scroll;
     }
     
@@ -683,11 +678,9 @@ document.addEventListener('DOMContentLoaded', function() {
         position: relative;
         width: 100%;
         max-width: 100%;
-        margin-bottom: 1rem;
-        padding: 1.5rem 1rem 0.5rem 1rem;
+        margin: 0 auto 1.5rem;
+        padding: 1.5rem 1rem 1rem;
         pointer-events: auto;
-        transform: none;
-        left: auto;
         gap: 1.5rem;
     }
     
@@ -701,11 +694,6 @@ document.addEventListener('DOMContentLoaded', function() {
         align-items: start;
     }
     
-    .projects-heading {
-        grid-row: 1;
-        grid-column: 1;
-    }
-    
     .projects-card {
         grid-row: 2;
         grid-column: 1;
@@ -715,8 +703,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     .projects-card-img {
-        width: 320px;
-        height: 250px;
+        width: 260px;
+        height: 200px;
         margin: 0 auto;
     }
     
@@ -747,18 +735,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* Tablet adjustments */
 @media (min-width: 600px) and (max-width: 1024px) {
+    .projects-showcase-section {
+        min-height: 90vh;
+        height: 90vh;
+    }
+    
     .projects-heading {
-        position: absolute;
+        position: relative;
         width: 100%;
-        top: calc(var(--img-w) * 0.08);
-        left: 50%;
-        transform: translateX(-50%);
         max-width: 850px;
-        margin-bottom: 0;
-        padding: 2rem 1.5rem 1rem 1.5rem;
-        z-index: 100;
-        pointer-events: none;
-        background: transparent;
+        margin: 0 auto 2.5rem;
+        padding: 2rem 1.5rem 1.5rem;
         gap: 1.5rem;
     }
     
@@ -768,11 +755,6 @@ document.addEventListener('DOMContentLoaded', function() {
         height: auto;
         margin-bottom: 0;
         padding-bottom: 0;
-    }
-    
-    .projects-heading {
-        grid-row: 1;
-        grid-column: 1;
     }
     
     .projects-card {
