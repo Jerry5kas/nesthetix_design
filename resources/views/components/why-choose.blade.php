@@ -64,19 +64,9 @@
                 target2: 500,
                 target3: 98,
                 target4: 50,
-                duration: 2000, // 2 seconds animation duration
+                duration: 2000,
                 started: false,
                 animationFrame: null,
-                init() {
-                    // Check if element is already visible on mount
-                    this.$nextTick(() => {
-                        const rect = this.$el.getBoundingClientRect();
-                        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-                        if (isVisible && !this.started) {
-                            setTimeout(() => this.startCounting(), 300);
-                        }
-                    });
-                },
                 startCounting() {
                     if (this.started) return;
                     this.started = true;
@@ -101,9 +91,62 @@
                         }
                     };
                     self.animationFrame = requestAnimationFrame(animate);
+                },
+                init() {
+                    const self = this;
+                    
+                    // Aggressive approach: Start animation with multiple fallbacks
+                    // This ensures it always runs regardless of page load speed
+                    
+                    const attemptStart = () => {
+                        if (!self.started) {
+                            self.startCounting();
+                        }
+                    };
+                    
+                    // Check if element is already visible (for fast page loads)
+                    const checkAndStart = () => {
+                        const rect = self.$el.getBoundingClientRect();
+                        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                        if (isVisible && !self.started) {
+                            setTimeout(attemptStart, 300);
+                        }
+                    };
+                    
+                    // Method 1: Check immediately if already visible
+                    this.$nextTick(() => {
+                        checkAndStart();
+                        setTimeout(attemptStart, 500);
+                    });
+                    
+                    // Method 2: Start on DOM ready (handles fast page loads)
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', () => {
+                            checkAndStart();
+                            setTimeout(attemptStart, 600);
+                        });
+                    } else {
+                        checkAndStart();
+                        setTimeout(attemptStart, 600);
+                    }
+                    
+                    // Method 3: Start on full page load (handles slow loads with images)
+                    if (document.readyState === 'complete') {
+                        setTimeout(attemptStart, 700);
+                    } else {
+                        window.addEventListener('load', () => {
+                            setTimeout(attemptStart, 700);
+                        });
+                    }
+                    
+                    // Method 4: Ultimate fallback - always start after 1.5 seconds
+                    setTimeout(attemptStart, 1500);
+                    
+                    // Method 5: Intersection observer (x-intersect) will also trigger
+                    // This handles cases where user scrolls to the section
                 }
             }"
-            x-intersect.threshold.50="startCounting()"
+            x-intersect.threshold.0="startCounting()"
             data-animate="fade-up"
             data-delay="0.5"
         >

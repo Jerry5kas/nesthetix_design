@@ -15,6 +15,9 @@
             />
         </div>
         
+        {{-- Black Overlay --}}
+        <div class="absolute inset-0 z-[5] bg-black/50"></div>
+        
         <div class="relative z-10 max-w-7xl mx-auto">
             <div class="text-center max-w-4xl mx-auto">
                 {{-- Subheading Badge --}}

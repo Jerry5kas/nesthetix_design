@@ -10,7 +10,7 @@
     Usage with custom icon: <x-trust-strip icon-url="https://..." />
     ============================================ --}}
 
-<section id="trust" class="relative py-6 sm:py-8 bg-black border-y border-white/10">
+<section id="trust" class="relative py-6 sm:py-8 trust-strip-bg-pattern border-y border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 items-center" data-animate="stagger" data-stagger="0.1">
             @php
@@ -58,4 +58,22 @@
         </div>
     </div>
 </section>
+
+<style>
+/* Custom Trust Strip Background Pattern */
+.trust-strip-bg-pattern {
+    --s: 60px; /* control the size*/
+    --c1: #181616;
+    --c2: #000000;
+  
+    --_g: #0000 83%,var(--c1) 85% 99%,#0000 101%;
+    background:
+      radial-gradient(27% 29% at right ,var(--_g)) calc(var(--s)/ 2) var(--s),
+      radial-gradient(27% 29% at left  ,var(--_g)) calc(var(--s)/-2) var(--s),
+      radial-gradient(29% 27% at top   ,var(--_g)) 0 calc(var(--s)/ 2),
+      radial-gradient(29% 27% at bottom,var(--_g)) 0 calc(var(--s)/-2)
+      var(--c2);
+    background-size: calc(2*var(--s)) calc(2*var(--s));
+}
+</style>
 

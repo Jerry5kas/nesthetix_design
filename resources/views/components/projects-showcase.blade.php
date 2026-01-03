@@ -310,11 +310,12 @@ document.addEventListener('DOMContentLoaded', function() {
     .projects-cards {
         min-height: auto;
         height: auto;
+        padding-bottom: 2rem;
     }
     
     .projects-showcase-section {
-        min-height: 90vh;
-        height: 90vh;
+        min-height: 110vh;
+        height: auto;
     }
 }
 
@@ -341,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Desktop: Image Left, Content Right */
 @media (min-width: 600px) {
     .projects-cards {
-        --img-w: 550px;
+        --img-w: 420px;
         grid-template-rows: auto;
         height: auto;
     }
@@ -387,8 +388,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 @media (min-width: 600px) {
     .projects-card-img {
-        width: 550px;
-        height: 450px;
+        width: 420px;
+        height: 340px;
         grid-column: 1;
         grid-row: 1;
         align-self: center;
@@ -605,13 +606,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* Section Height Adjustments */
 .projects-showcase-section {
-    min-height: auto;
+    min-height: 90vh; /* Increased from auto */
     height: auto;
     max-height: none;
     scroll-margin-top: 0;
     scroll-padding-top: 0;
-    scroll-padding-bottom: 0;
-    padding-bottom: 0;
+    scroll-padding-bottom: 0px;
+    padding-bottom: 4rem; /* Added padding at bottom */
+    padding-top: 4rem;    /* Added padding at top */
     margin-bottom: 0;
     contain: layout style;
     background-image: url('https://ik.imagekit.io/AthaConstruction/assets/bg-interior_69538930975dd1.21410735_oZII3KUKK.jfif');
@@ -620,6 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative;
+    overflow: visible; /* Ensure content isn't clipped */
 }
 
 .projects-showcase-section::before {

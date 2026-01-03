@@ -78,19 +78,19 @@
                     class="text-gray-700 text-sm md:text-base leading-relaxed"
                     style="font-family: 'Satoshi', sans-serif;"
                 >
-                    <span class="font-semibold text-[var(--color-primary)]" style="color: var(--color-primary);">Nesthetix Designs LLP</span> was born from a <span class="font-medium" style="color: #C9A86C;">natural evolution</span> — a response to the growing demand for interiors that move beyond <span class="italic">surface aesthetics</span> and genuinely <span class="font-medium" style="color: #C9A86C;">reflect the individuality</span> of those who inhabit them.
+                    <span class="font-semibold text-[var(--color-primary)]" style="color: var(--color-primary);">Nesthetix Designs LLP</span> was born from a <span class="font-medium" style="color: #6B7280;">natural evolution</span> — a response to the growing demand for interiors that move beyond <span class="italic">surface aesthetics</span> and genuinely <span class="font-medium" style="color: #6B7280;">reflect the individuality</span> of those who inhabit them.
                 </p>
                 <p 
                     class="text-gray-700 text-sm md:text-base leading-relaxed"
                     style="font-family: 'Satoshi', sans-serif;"
                 >
-                    What began as a focused design initiative matured into a <span class="font-medium" style="color: #C9A86C;">dedicated interior design practice</span>, committed to creating <span class="font-medium">personalized, sophisticated environments</span>. By quietly blending <span class="font-medium">contemporary sensibilities with timeless elegance</span>, Nesthetix has shaped a design philosophy rooted in <span class="font-semibold" style="color: var(--color-primary);">balance, restraint, and intent</span>.
+                    What began as a focused design initiative matured into a <span class="font-medium" style="color: #6B7280;">dedicated interior design practice</span>, committed to creating <span class="font-medium">personalized, sophisticated environments</span>. By quietly blending <span class="font-medium">contemporary sensibilities with timeless elegance</span>, Nesthetix has shaped a design philosophy rooted in <span class="font-semibold" style="color: var(--color-primary);">balance, restraint, and intent</span>.
                 </p>
                 <p 
                     class="text-gray-700 text-sm md:text-base leading-relaxed"
                     style="font-family: 'Satoshi', sans-serif;"
                 >
-                    Each space is approached as a <span class="font-medium italic" style="color: #C9A86C;">narrative</span> — <span class="font-medium">thoughtfully planned, meticulously detailed</span>, and tailored to complement modern living while remaining <span class="font-medium">enduring in character</span>.
+                    Each space is approached as a <span class="font-medium italic" style="color: #6B7280;">narrative</span> — <span class="font-medium">thoughtfully planned, meticulously detailed</span>, and tailored to complement modern living while remaining <span class="font-medium">enduring in character</span>.
                 </p>
                 
                 {{-- Growth, Expertise & Positioning --}}
@@ -99,19 +99,19 @@
                         class="text-gray-700 text-sm md:text-base leading-relaxed mb-4"
                         style="font-family: 'Satoshi', sans-serif;"
                     >
-                        With a clear focus on <span class="font-semibold" style="color: var(--color-primary);">bespoke luxury interiors</span> and <span class="font-medium" style="color: #C9A86C;">architectural enhancements</span>, Nesthetix Designs LLP refined its practice to serve a <span class="font-medium">discerning clientele</span>. <span class="font-medium" style="color: #C9A86C;">Advanced design methodologies</span>, curated material palettes, and considered integration of automation quietly elevate both the <span class="font-medium">aesthetics and performance</span> of every project.
+                        With a clear focus on <span class="font-semibold" style="color: var(--color-primary);">bespoke luxury interiors</span> and <span class="font-medium" style="color: #6B7280;">architectural enhancements</span>, Nesthetix Designs LLP refined its practice to serve a <span class="font-medium">discerning clientele</span>. <span class="font-medium" style="color: #6B7280;">Advanced design methodologies</span>, curated material palettes, and considered integration of automation quietly elevate both the <span class="font-medium">aesthetics and performance</span> of every project.
                     </p>
                     <p 
                         class="text-gray-700 text-sm md:text-base leading-relaxed"
                         style="font-family: 'Satoshi', sans-serif;"
                     >
-                        Supported by a <span class="font-medium" style="color: #C9A86C;">dedicated team of architects and designers</span>, Nesthetix has delivered refined interiors across <span class="font-medium">luxury residences, commercial environments, and hospitality spaces</span>. <span class="font-semibold" style="color: var(--color-primary);">Precision in detailing</span>, structured execution, and a measured approach to craftsmanship have become <span class="font-medium italic" style="color: #C9A86C;">defining pillars</span> of the studio.
+                        Supported by a <span class="font-medium" style="color: #6B7280;">dedicated team of architects and designers</span>, Nesthetix has delivered refined interiors across <span class="font-medium">luxury residences, commercial environments, and hospitality spaces</span>. <span class="font-semibold" style="color: var(--color-primary);">Precision in detailing</span>, structured execution, and a measured approach to craftsmanship have become <span class="font-medium italic" style="color: #6B7280;">defining pillars</span> of the studio.
                     </p>
                     <p 
                         class="text-gray-700 text-sm md:text-base leading-relaxed mt-4"
                         style="font-family: 'Satoshi', sans-serif;"
                     >
-                        This evolution has positioned Nesthetix Designs as a <span class="font-semibold" style="color: var(--color-primary);">trusted name in high-end interior design</span> — setting a calm, confident foundation for continued <span class="font-medium" style="color: #C9A86C;">growth, innovation, and excellence</span>.
+                        This evolution has positioned Nesthetix Designs as a <span class="font-semibold" style="color: var(--color-primary);">trusted name in high-end interior design</span> — setting a calm, confident foundation for continued <span class="font-medium" style="color: #6B7280;">growth, innovation, and excellence</span>.
                     </p>
                 </div>
             </div>

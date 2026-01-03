@@ -11,20 +11,20 @@
     ============================================ --}}
 
 <section 
-    class="relative py-12 overflow-hidden bg-white w-full" 
+    class="relative py-12 overflow-hidden services-bg-pattern w-full" 
     id="services-section"
     aria-labelledby="services-heading"
     data-animate="fade-up"
 >
-    {{-- Decorative Accent Line --}}
+    <!-- Decorative Accent Line -->
     <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10"></div>
     
     <div class="relative w-full z-20">
-        {{-- Header Section --}}
+        <!-- Header Section -->
         <div class="text-center max-w-4xl mx-auto mb-12 px-6 lg:px-16" data-animate="fade-up">
-            {{-- Subheading Badge --}}
+            <!-- Subheading Badge -->
             <p 
-                class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-3 font-medium"
+                class="text-[#D4AF37] tracking-[0.3em] uppercase text-xs mb-3 font-medium"
                 style="font-family: 'Satoshi', sans-serif;"
                 data-animate="fade-up"
                 data-delay="0.1"
@@ -32,10 +32,10 @@
                 {{ $subheading }}
             </p>
 
-            {{-- Main Heading --}}
+            <!-- Main Heading -->
             <h2
                 id="services-heading"
-                class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight mb-4"
+                class="font-light text-2xl md:text-4xl lg:text-5xl text-white leading-tight mb-4"
                 style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
                 data-animate="fade-up"
                 data-delay="0.2"
@@ -43,16 +43,16 @@
                 {{ $heading }}
             </h2>
 
-            {{-- Primary Divider --}}
+            <!-- Primary Divider -->
             <div 
-                class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-6"
+                class="w-20 h-px bg-gradient-to-r from-[#D4AF37] to-transparent mx-auto mb-6"
                 data-animate="fade-up"
                 data-delay="0.3"
             ></div>
 
-            {{-- Description --}}
+            <!-- Description -->
             <p 
-                class="max-w-4xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed mb-8"
+                class="max-w-4xl mx-auto text-gray-400 text-sm md:text-base leading-relaxed mb-8"
                 style="font-family: 'Satoshi', sans-serif;"
                 data-animate="fade-up"
                 data-delay="0.4"
@@ -411,12 +411,12 @@ function servicesCards() {
     }
     
     .service-card__description {
-        color: rgba(255, 255, 255, 0.95);
+        color: #4b5563;
         margin-bottom: 1rem;
     }
     
     .service-card__feature {
-        color: rgba(255, 255, 255, 0.95);
+        color: #4b5563;
     }
     
     .service-card__feature svg {
@@ -491,5 +491,21 @@ function servicesCards() {
 .service-card:nth-child(5) { animation-delay: 0.5s; }
 .service-card:nth-child(6) { animation-delay: 0.6s; }
 .service-card:nth-child(7) { animation-delay: 0.7s; }
+
+/* Custom Services Background Pattern */
+.services-bg-pattern {
+    --s: 60px; /* control the size*/
+    --c1: #181616;
+    --c2: #000000;
+  
+    --_g: #0000 83%,var(--c1) 85% 99%,#0000 101%;
+    background:
+      radial-gradient(27% 29% at right ,var(--_g)) calc(var(--s)/ 2) var(--s),
+      radial-gradient(27% 29% at left  ,var(--_g)) calc(var(--s)/-2) var(--s),
+      radial-gradient(29% 27% at top   ,var(--_g)) 0 calc(var(--s)/ 2),
+      radial-gradient(29% 27% at bottom,var(--_g)) 0 calc(var(--s)/-2)
+      var(--c2);
+    background-size: calc(2*var(--s)) calc(2*var(--s));
+}
 </style>
 
