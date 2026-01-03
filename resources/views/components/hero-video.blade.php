@@ -7,7 +7,8 @@ Usage: <x-hero-video />
 <section class="hero-video-section">
     {{-- Video Background --}}
     <div class="hero-video-wrapper">
-        <video class="hero-video" autoplay loop muted playsinline preload="auto">
+        <video class="hero-video" autoplay loop muted playsinline preload="auto"
+            poster="https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg">
             <source src="{{ asset('video/hero.mp4') }}" type="video/mp4">
             {{-- Fallback image if video fails to load --}}
             <img src="https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg"
@@ -135,7 +136,7 @@ Usage: <x-hero-video />
         backdrop-filter: blur(10px);
         display: inline-block;
         opacity: 0;
-        animation: fadeInUp 0.8s ease-out forwards;
+        /* GSAP will handle these */
     }
 
     /* Title */
@@ -334,18 +335,16 @@ Usage: <x-hero-video />
         .hero-video-divider,
         .hero-video-description,
         .hero-video-cta {
-            animation: none;
-            opacity: 1;
+            opacity: 0;
         }
-    }
 
-    /* Video loading state */
-    .hero-video[poster] {
-        background-color: #000;
-    }
+        /* Video loading state */
+        .hero-video[poster] {
+            background-color: #000;
+        }
 
-    /* Accessibility: Ensure content is visible even if video fails */
-    .hero-video-content {
-        min-height: 400px;
-    }
+        /* Accessibility: Ensure content is visible even if video fails */
+        .hero-video-content {
+            min-height: 400px;
+        }
 </style>

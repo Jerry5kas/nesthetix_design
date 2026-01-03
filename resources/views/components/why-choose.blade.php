@@ -1,69 +1,53 @@
 {{-- ============================================
-    WHY CHOOSE SECTION COMPONENT
-    Premium Interior Design - Why Choose Us Section
-    Usage: <x-why-choose />
-    ============================================ --}}
+WHY CHOOSE SECTION COMPONENT
+Premium Interior Design - Why Choose Us Section
+Usage: <x-why-choose />
+============================================ --}}
 
-<section
-    class="relative py-8 sm:py-10 px-6 lg:px-16 overflow-hidden bg-white"
-    data-animate="fade-up"
->
+<section class="relative py-8 sm:py-10 px-6 lg:px-16 overflow-hidden bg-white" data-animate="fade-up">
     {{-- Decorative Accent Line --}}
-    <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10"></div>
+    <div
+        class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10">
+    </div>
 
     {{-- Content Container --}}
     <div class="relative max-w-5xl mx-auto text-center z-20">
         {{-- Tagline --}}
-        <p 
-            class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-2 font-medium"
-            style="font-family: 'Satoshi', sans-serif;"
-            data-animate="fade-up"
-            data-delay="0.1"
-        >
+        <p class="text-theme-muted tracking-[0.3em] uppercase text-xs mb-2 font-medium"
+            style="font-family: 'Satoshi', sans-serif;" data-animate="fade-up" data-delay="0.1">
             Premium Interior Design
         </p>
 
         {{-- Heading --}}
-        <h2 
-            class="font-light text-2xl md:text-3xl lg:text-4xl text-theme-primary leading-tight mb-3"
-            style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
-            data-animate="fade-up"
-            data-delay="0.2"
-        >
+        <h2 class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight mb-4"
+            style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;" data-animate="fade-up"
+            data-delay="0.2">
             WHY CHOOSE <br class="hidden md:block"> NESTHETIX DESIGNS?
         </h2>
 
         {{-- Primary Divider --}}
-        <div 
-            class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-5"
-            data-animate="fade-up"
-            data-delay="0.3"
-        ></div>
+        <div class="w-20 h-px bg-gradient-to-r from-[var(--color-primary)] to-transparent mx-auto mb-5"
+            data-animate="fade-up" data-delay="0.3"></div>
 
         {{-- Description --}}
-        <p 
-            class="max-w-3xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed mb-6"
-            style="font-family: 'Satoshi', sans-serif;"
-            data-animate="fade-up"
-            data-delay="0.4"
-        >
-            We transform spaces into timeless sanctuaries that reflect your unique vision. From initial concept to final execution, 
-            our team of expert designers and craftsmen delivers exceptional results on time and within budget. 
+        <p class="max-w-3xl mx-auto text-gray-700 text-sm md:text-base leading-relaxed mb-6"
+            style="font-family: 'Satoshi', sans-serif;" data-animate="fade-up" data-delay="0.4">
+            We transform spaces into timeless sanctuaries that reflect your unique vision. From initial concept to final
+            execution,
+            our team of expert designers and craftsmen delivers exceptional results on time and within budget.
             Experience the difference of thoughtful design — where every detail matters and luxury meets functionality.
         </p>
 
         {{-- Stats Card --}}
-        <div
-            class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-            x-data="{
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6" x-data="{
                 count1: 0,
                 count2: 0,
                 count3: 0,
                 count4: 0,
                 target1: 10,
-                target2: 500,
+                target2: 20,
                 target3: 98,
-                target4: 50,
+                target4: 5,
                 duration: 2000,
                 started: false,
                 animationFrame: null,
@@ -145,14 +129,11 @@
                     // Method 5: Intersection observer (x-intersect) will also trigger
                     // This handles cases where user scrolls to the section
                 }
-            }"
-            x-intersect.threshold.0="startCounting()"
-            data-animate="fade-up"
-            data-delay="0.5"
-        >
+            }" x-intersect.threshold.0="startCounting()" data-animate="fade-up" data-delay="0.5">
             {{-- Stat 1 --}}
             <div class="text-center">
-                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1" style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
+                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1"
+                    style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
                     <span x-text="Math.floor(count1)">0</span>+
                 </p>
                 <p class="text-xs font-medium text-gray-600" style="font-family: 'Satoshi', sans-serif;">
@@ -162,7 +143,8 @@
 
             {{-- Stat 2 --}}
             <div class="text-center">
-                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1" style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
+                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1"
+                    style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
                     <span x-text="Math.floor(count2)">0</span>+
                 </p>
                 <p class="text-xs font-medium text-gray-600" style="font-family: 'Satoshi', sans-serif;">
@@ -172,7 +154,8 @@
 
             {{-- Stat 3 --}}
             <div class="text-center">
-                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1" style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
+                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1"
+                    style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
                     <span x-text="Math.floor(count3)">0</span>%
                 </p>
                 <p class="text-xs font-medium text-gray-600" style="font-family: 'Satoshi', sans-serif;">
@@ -182,7 +165,8 @@
 
             {{-- Stat 4 --}}
             <div class="text-center">
-                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1" style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
+                <p class="text-theme-secondary font-light text-2xl md:text-3xl lg:text-4xl mb-1"
+                    style="font-family: 'Canela Text Trial', serif; color: var(--color-primary);">
                     <span x-text="Math.floor(count4)">0</span>+
                 </p>
                 <p class="text-xs font-medium text-gray-600" style="font-family: 'Satoshi', sans-serif;">
@@ -192,5 +176,3 @@
         </div>
     </div>
 </section>
-
-

@@ -3,7 +3,6 @@
     canonical="{{ url('/services') }}">
 
     {{-- Hero Section --}}
-    {{-- Hero Section --}}
     <section
         class="relative py-14 lg:py-20 px-6 lg:px-16 overflow-hidden hero-banner-section flex items-center justify-center min-h-[40vh]"
         data-animate="fade-up">
@@ -34,82 +33,109 @@
     </section>
 
     {{-- Services Section --}}
-    <section class="relative py-24 lg:py-32" id="services-overview">
-        <div class="max-w-[90rem] mx-auto px-6 lg:px-16" x-data="servicesPage()">
+    <section class="relative py-20 lg:py-32 bg-[#0c0c0c] overflow-hidden" id="services-overview">
+        {{-- Brand Background Pattern --}}
+        <div class="absolute inset-0 bg-pattern-dark-radial opacity-40 -z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0c0c0c] via-transparent to-[#0c0c0c] -z-10"></div>
 
+        <div class="max-w-[90rem] mx-auto px-6 lg:px-16" x-data="servicesPage()">
             <div class="space-y-32 lg:space-y-48">
                 <template x-for="(service, index) in services" :key="index">
-                    <div class="service-section group">
-                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+                    <div class="service-section group relative">
+                        {{-- Background Glow --}}
+                        <div
+                            class="absolute -inset-x-20 -inset-y-32 bg-radial-gradient from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -z-10 pointer-events-none">
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
                             {{-- Text Content Column --}}
-                            <div class="lg:col-span-5 flex flex-col justify-center space-y-12 lg:space-y-16"
-                                :class="index % 2 === 0 ? 'lg:order-1' : 'lg:order-2 lg:col-start-8'">
+                            <div class="lg:col-span-6 flex flex-col justify-center"
+                                :class="index % 2 === 0 ? 'lg:order-1 lg:pr-12' : 'lg:order-2 lg:pl-12'">
 
                                 {{-- Header --}}
-                                <div class="relative">
-                                    <span class=" font-medium tracking-[0.2em] text-sm uppercase mb-4 block"
-                                        style="font-family: 'Satoshi', sans-serif;">
-                                        Service <span x-text="'0' + (index + 1)"></span>
-                                    </span>
-                                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-light leading-[1.1] mb-8"
-                                        style="font-family: 'Canela Text Trial', serif;" x-text="service.title"></h2>
-                                    <p class="text-lg md:text-xl text-gray-800 leading-relaxed font-light"
-                                        style="font-family: 'Satoshi', sans-serif;" x-text="service.description"></p>
+                                <div class="relative space-y-4 mb-10">
+                                    <div class="flex items-center gap-4 mb-2" data-animate="fade-up">
+                                        <div class="w-10 h-px bg-[#D4AF37]/60"></div>
+                                        <span class="font-medium tracking-[0.3em] text-[10px] uppercase text-[#D4AF37]"
+                                            style="font-family: 'Satoshi', sans-serif;">
+                                            Service <span x-text="'0' + (index + 1)"></span>
+                                        </span>
+                                    </div>
+
+                                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] text-white"
+                                        style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
+                                        x-text="service.title" data-text="split-lines"></h2>
+
+                                    <p class="text-base text-gray-400 leading-relaxed font-light max-w-xl"
+                                        style="font-family: 'Satoshi', sans-serif;" x-text="service.description"
+                                        data-animate="fade-up">
+                                    </p>
                                 </div>
 
-                                {{-- Scope List (Minimal) --}}
-                                <div class="border-t border-white/10 pt-10">
-                                    <h3 class="text-xl font-light text-[#D4AF37] mb-8"
-                                        style="font-family: 'Canela Text Trial', serif;">Scope of Work</h3>
+                                {{-- Compact Scope Section --}}
+                                <div class="space-y-8 border-t border-white/10 pt-8" data-animate="fade-up">
+                                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D4AF37]/60"
+                                        style="font-family: 'Satoshi', sans-serif;">Service Highlights</h3>
 
-                                    <div class="space-y-8">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
                                         <template x-for="scopeItem in service.scope">
-                                            <div class="group/item">
-                                                <h4 class="text-lg font-medium mb-2 flex items-center gap-3"
+                                            <div class="group/scope transition-all duration-500">
+                                                <h4 class="text-xs font-semibold text-white/90 mb-1.5 flex items-center gap-2"
                                                     style="font-family: 'Satoshi', sans-serif;">
-                                                    <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37]"></span>
+                                                    <span
+                                                        class="w-1 h-1 rounded-full bg-[#D4AF37] group-hover/scope:scale-125 transition-transform"></span>
                                                     <span x-text="scopeItem.category"></span>
                                                 </h4>
-                                                <p class="text-sm text-gray-400 pl-4.5 leading-relaxed font-light">
-                                                    <span x-text="scopeItem.items.join(', ')"></span>
-                                                </p>
+                                                <p class="text-[11px] text-gray-50/[0.85] leading-relaxed font-light pl-2.5 border-l border-white/10 group-hover/scope:border-[#D4AF37]/40 transition-colors"
+                                                    x-text="scopeItem.items.join(' • ')"></p>
                                             </div>
                                         </template>
                                     </div>
                                 </div>
 
-                                {{-- Defines (Pills) --}}
-                                <div class="flex flex-wrap gap-3">
+                                {{-- Attributes (Pills) --}}
+                                <div class="flex flex-wrap gap-2 mt-12" data-animate="fade-up">
                                     <template x-for="define in service.defines">
                                         <span
-                                            class="px-4 py-2 rounded-full border border-black/20 text-xs uppercase tracking-wider text-gray-400 hover:text-black hover:border-[#D4AF37] transition-colors duration-300"
+                                            class="px-3 py-1.5 rounded-full border border-white/10 text-[9px] uppercase tracking-wider text-gray-500 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-all duration-300"
                                             style="font-family: 'Satoshi', sans-serif;" x-text="define"></span>
                                     </template>
                                 </div>
                             </div>
 
-                            {{-- Sticky Image Column --}}
-                            <div class="lg:col-span-6 lg:sticky lg:top-24 h-[60vh] lg:h-[85vh] w-full"
-                                :class="index % 2 === 0 ? 'lg:order-2 lg:col-start-7' : 'lg:order-1 lg:col-start-1'">
-                                <div
-                                    class="w-full h-full relative overflow-hidden bg-white/5 rounded-sm group-hover:shadow-[0_20px_50px_rgba(255,255,255,0.05)] transition-all duration-700 ease-out">
-                                    {{-- Image --}}
-                                    <img :src="service.images[0]"
-                                        class="w-full h-full object-cover opacity-90 transition-transform duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105 group-hover:opacity-100"
-                                        :alt="service.title + ' Showcase'">
+                            {{-- Dynamic Image Composition --}}
+                            <div class="lg:col-span-6 w-full" :class="index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'">
 
-                                    {{-- Overlay Content --}}
-                                    <div
-                                        class="absolute inset-0 bg-black/20 transition-opacity duration-500 group-hover:bg-black/0">
+                                <div class="relative w-full aspect-[4/5]">
+                                    {{-- Main Feature Image --}}
+                                    <div class="absolute inset-0 w-full h-full overflow-hidden rounded-2xl shadow-2xl border border-white/10"
+                                        data-reveal="clip">
+                                        <img :src="service.images[0]"
+                                            class="absolute inset-x-0 -top-[10%] w-full h-[120%] object-cover transition-transform duration-[2s] ease-out group-hover:scale-110"
+                                            :alt="service.title" data-parallax="0.1">
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-transparent to-transparent opacity-40">
+                                        </div>
                                     </div>
-                                </div>
 
-                                {{-- Secondary Images (Small Grid below Sticky) --}}
-                                <div class="absolute -bottom-12 -right-12 w-48 h-32 hidden lg:block shadow-2xl z-10"
-                                    x-show="service.images[1]" :class="index % 2 !== 0 ? 'right-auto -left-12' : ''">
-                                    <img :src="service.images[1]"
-                                        class="w-full h-full object-cover border-4 border-[#D4AF37]/30">
+                                    {{-- Accent Floating Image --}}
+                                    <div class="absolute -bottom-6 w-52 h-64 rounded-xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.9)] border border-white/10 z-10 hidden xl:block translate-y-4 group-hover:translate-y-0 transition-all duration-1000"
+                                        x-show="service.images[1]" :class="index % 2 === 0 ? '-left-8' : '-right-8'"
+                                        data-animate="fade-up">
+                                        <img :src="service.images[1]"
+                                            class="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-105"
+                                            loading="lazy">
+                                    </div>
+
+                                    {{-- Geometric Ornament --}}
+                                    <div class="absolute -top-8 w-32 h-32 opacity-10 pointer-events-none z-0"
+                                        :class="index % 2 === 0 ? '-right-8' : '-left-8'">
+                                        <svg viewBox="0 0 100 100" class="w-full h-full text-[#D4AF37] fill-current">
+                                            <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor"
+                                                stroke-width="0.5" stroke-dasharray="2 4" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
 
@@ -244,10 +270,10 @@
                     shortDescription: 'Thoughtfully designed homes that reflect your lifestyle, culture, and everyday needs.',
                     description: 'Our residential interior services are designed to deliver fully customized, functional, and aesthetically refined homes. From individual residences to large-scale housing projects, we manage the entire interior journey with clarity and precision.',
                     images: [
-                        'https://www.andacademy.com/resources/wp-content/uploads/2024/04/2-6.webp',
-                        'https://dlifeinteriors.com/wp-content/uploads/2022/09/living-room-design-apartment-interior-project-kochi.jpg',
-                        'https://media.designcafe.com/wp-content/uploads/2021/06/17170725/indian-villa-design-interiors-for-your-home.jpg',
-                        'https://media.designcafe.com/wp-content/uploads/2020/07/22202124/independent-house-interior-design-with-living-room.jpg'
+
+                        'https://ik.imagekit.io/AthaConstruction/assets/residential__1__69590f1fb09ab4.28549250_PCHj_Z-Lc.jpg',
+                        'https://ik.imagekit.io/AthaConstruction/assets/residential_69590f936c81e4.52049382_XRGi-bGVS.jpg',
+
                     ],
                     scope: [
                         {
@@ -379,11 +405,8 @@
                     shortDescription: 'Well-designed commercial environments that support productivity, efficiency, and brand identity.',
                     description: 'Our commercial interior services are structured to deliver high-performance workspaces and business environments. We manage design, planning, and execution with a strong focus on functionality, technical accuracy, and brand alignment.',
                     images: [
-                        'https://www.cherryhill.in/blog/wp-content/uploads/2021/09/17.jpg',
-                        'https://elledecor.in/wp-content/uploads/2024/09/V12_OL.jpg',
-                        'https://blog.spacematrix.com/wp-content/uploads/2025/05/avendus-mumbai-work-cafe-employee-experience-1.webp',
-                        'https://jumanji.livspace-cdn.com/magazine/wp-content/uploads/sites/2/2023/06/29165228/retail-interior-design-1-1.jpg',
-                        'https://i0.wp.com/addindiagroup.com/wp-content/uploads/2024/04/SC408584_LR-2-scaled.jpg?fit=800%2C534&ssl=1'
+                        'https://ik.imagekit.io/AthaConstruction/assets/commercial__2__69590d8c604132.76527033_4GlNiIOfO.jpg',
+                        'https://ik.imagekit.io/AthaConstruction/assets/commercial_69590f15226d43.63591292_E0Pa8qYkS.jpg',
                     ],
                     scope: [
                         {
@@ -517,10 +540,9 @@
                     shortDescription: 'Modern, functional kitchens designed with precision, efficiency, and refined aesthetics.',
                     description: 'Our modular kitchen services are tailored to Indian cooking habits, space constraints, and modern lifestyles. We deliver end-to-end kitchen solutions that balance design, durability, and everyday functionality.',
                     images: [
-                        'https://bysuryavanshi.com/cdn/shop/articles/10-smart-small-modular-kitchen-design-ideas-for-in_987ad053-b8f8-4d69-a1e5-63b7709275e9.jpg?v=1749548329&width=1100',
-                        'https://i.pinimg.com/originals/55/10/98/55109829f968e5e3b3ae9e13bdfe96b1.jpg',
-                        'https://www.buildingmaterialreporter.com/uploads/blogs/files/ModularKitchensBMR.jpg',
-                        'https://st.hzcdn.com/simgs/71d118620470598a_16-0042/home-design.jpg'
+                        'https://ik.imagekit.io/AthaConstruction/assets/kitchen__2__69590d6d8cc363.87693448_4ti4koydD.jpg',
+                        'https://ik.imagekit.io/AthaConstruction/assets/kitchen__1__69590d5c34d476.36779215_QA-Oan8zP.jpg',
+
                     ],
                     scope: [
                         {
@@ -627,10 +649,8 @@
                     shortDescription: 'Professional interior design planning that transforms ideas into clear, executable design solutions.',
                     description: 'Our design-only services are ideal for clients who require expert design direction without execution. We provide structured, detailed, and technically sound design documentation that enables smooth and accurate implementation.',
                     images: [
-                        'https://www.skygreeninterior.com/wp-content/uploads/2023/06/Interior-consulting.jpg',
-                        'https://i0.wp.com/civillane.com/wp-content/uploads/2020/04/3D-Living-Room-View.jpg',
-                        'https://thelittledesigncorner.com/cdn/shop/articles/Copy_of_Blog_Pinterest_Pin_2.png?v=1747169353',
-                        'https://cdn.shopify.com/s/files/1/0550/1075/4765/files/room-interior-design-building-furniture-turquoise-ceiling-1632295-pxhere.com.jpg?v=1659625911'
+                        'https://ik.imagekit.io/AthaConstruction/assets/design__2__69590cf7062d27.17802019_TnaJyM3e-.jpg',
+                        'https://ik.imagekit.io/AthaConstruction/assets/design__1__69590d03903133.14810402_38Spj0Xu-.jpg',
                     ],
                     scope: [
                         {
@@ -724,10 +744,8 @@
                     shortDescription: 'Expert interior execution and project management for designs developed by you or a third party.',
                     description: 'Our execution-only services are designed for clients who already have finalized designs and require experienced professionals to deliver them accurately. We focus on quality workmanship, precise coordination, and disciplined project management.',
                     images: [
-                        'https://www.decormyplace.in/servicebanner/84115881highest_rated_interior_designer_in_pune-02.jpg',
-                        'https://quickinterior.in/wp-content/uploads/2021/07/Project-Management-For-Interior-Designing.jpeg',
-                        'https://www.bhattacharyaandassociates.com/img/service/interior2.jpg',
-                        'https://www.niveeta.in/images/products/modern-office-fitout-renovation-delhi.webp'
+                        'https://ik.imagekit.io/AthaConstruction/assets/execution__2__69590cd7646d15.55430145_2wLfaaPOK.jpg',
+                        'https://ik.imagekit.io/AthaConstruction/assets/execution__1__69590cea7f9fb3.45961985_38cZRAetv.jpg',
                     ],
                     scope: [
                         {
@@ -829,10 +847,8 @@
                     shortDescription: 'Thoughtful interior solutions designed to deliver maximum value within a defined budget.',
                     description: 'Our budget-based interior services are designed for clients who seek functional, well-designed spaces with controlled costs. We focus on intelligent planning, durable materials, and efficient execution to achieve reliable outcomes without unnecessary complexity.',
                     images: [
-                        'https://static.asianpaints.com/content/dam/asianpaintsbeautifulhomes/202207/10-best-tips-on-budget-friendly-home-interior-designs/living-room-designs-indian-style-low-budget.jpg',
-                        'https://images.homify.com/image/upload/c_scale%2Ch_500%2Cw_500/v1518769340/p/photo/image/2438304/004_final.jpg',
-                        'https://static.asianpaints.com/content/dam/asianpaintsbeautifulhomes/202207/10-best-tips-on-budget-friendly-home-interior-designs/interior-design-low-cost.jpg',
-                        'https://media.designcafe.com/wp-content/uploads/2023/12/08164206/appliance-for-low-budget-small-space-modular-kitchen-design.jpg'
+                        'https://ik.imagekit.io/AthaConstruction/assets/budget_69590ca89ef6c6.21087942_QDQ2i8Ibo.jpg',
+                        'https://ik.imagekit.io/AthaConstruction/assets/budget__1__69590c15534e76.74473526_t6fvua93T.jpg'
                     ],
                     scope: [
                         {
@@ -940,6 +956,20 @@
             radial-gradient(29% 27% at top, var(--_g)) 0 calc(var(--s)/ 2),
             radial-gradient(29% 27% at bottom, var(--_g)) 0 calc(var(--s)/-2) var(--c2);
         background-size: calc(2*var(--s)) calc(2*var(--s));
+    }
+
+    /* Luxury Design Utilities */
+    .bg-radial-gradient {
+        background: radial-gradient(circle at center, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 100%);
+    }
+
+    [data-animate="reveal"] {
+        clip-path: inset(0 100% 0 0);
+        transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    [data-animate="reveal"].is-in-viewport {
+        clip-path: inset(0 0 0 0);
     }
 </style>
 

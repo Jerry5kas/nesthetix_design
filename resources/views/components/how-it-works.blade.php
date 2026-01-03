@@ -52,7 +52,7 @@
             {{-- Main Heading --}}
             <h2
                 id="how-it-works-heading"
-                class="font-light text-2xl md:text-3xl lg:text-4xl text-theme-primary leading-tight mb-3"
+                class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight mb-4"
                 style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
                 data-animate="fade-up"
                 data-delay="0.2"

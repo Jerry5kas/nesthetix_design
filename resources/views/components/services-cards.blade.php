@@ -1,511 +1,274 @@
 @props([
-    'heading' => 'Our Services',
-    'subheading' => 'What We Offer',
-    'description' => 'At Nesthetix Designs, we provide comprehensive interior design solutions that transform spaces into beautiful, functional environments. Our services span from initial concept to final execution.',
+    'heading' => 'Our Specialized Services',
+    'subheading' => 'Elevating Every Space',
+    'description' => 'At Nesthetix Designs, we blend artistic vision with technical precision to deliver bespoke interior solutions. From luxury residences to functional commercial spaces, our expertise ensures excellence at every touchpoint.',
+    'services' => [
+        [
+            'title' => 'Luxury Interiors',
+            'description' => 'Bespoke designs crafted with premium materials and exceptional attention to detail.',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-7535051_694fc1910371b6.19892859_OG657SCTl.jpg',
+            'link' => '/services#luxury'
+        ],
+        [
+            'title' => 'Residential Interiors',
+            'description' => 'Thoughtfully designed homes that reflect your unique lifestyle and personality.',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg',
+            'link' => '/services#residential'
+        ],
+        [
+            'title' => 'Commercial Interiors',
+            'description' => 'Productive and inspiring environments that strengthen your brand identity.',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/pexels-ranamatloob567-34823909_694baf216652f9.25031009_PrRZQjkTvi.jpg',
+            'link' => '/services#commercial'
+        ],
+        [
+            'title' => 'Modular Kitchens',
+            'description' => 'Efficient, modern, and ergonomic kitchen solutions for the contemporary home.',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/dining-room_694bad4ae18538.89672987_N_PzMlACP.jpg',
+            'link' => '/services#kitchen'
+        ],
+        [
+            'title' => 'Design-Only Services',
+            'description' => 'Professional planning and detailed visualizations to guide your project.',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/pexels-ansar-muhammad-380085065-23916862_694fb6c25a2ec1.73279304_WM5zT6f4f.jpg',
+            'link' => '/services#design'
+        ],
+        [
+            'title' => 'Execution-Only Services',
+            'description' => 'Expert project management and skilled implementation of pre-defined designs.',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg',
+            'link' => '/services#execution'
+        ],
+        [
+            'title' => 'Budget-Based Interiors',
+            'description' => 'Smart and stylish design solutions tailored to your specific financial goals.',
+            'image' => 'https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-6758775_694fb6266e8f29.85505953_j20NcjqS2.jpg',
+            'link' => '/services#budget'
+        ]
+    ]
 ])
 
-{{-- ============================================
-    SERVICES CARDS COMPONENT
-    Premium Interior Design Services - Hover Expanding Cards
-    Usage: <x-services-cards />
-    ============================================ --}}
+<section class="services-carousel-section relative py-20 lg:py-24 overflow-hidden" id="services" 
+    x-data="{ 
+        activeSlide: 0,
+        totalSlides: {{ count($services) }},
+        get visibleCount() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 768) return 2;
+            return 1;
+        },
+        get maxScroll() {
+            return Math.max(0, this.totalSlides - this.visibleCount);
+        },
+        get dotCount() {
+            if (this.totalSlides <= 3) return this.totalSlides;
+            return Math.min(5, this.maxScroll + 1);
+        },
+        next() {
+            this.activeSlide = this.activeSlide >= this.maxScroll ? 0 : this.activeSlide + 1;
+            this.scrollToActive();
+        },
+        prev() {
+            this.activeSlide = this.activeSlide <= 0 ? this.maxScroll : this.activeSlide - 1;
+            this.scrollToActive();
+        },
+        scrollToActive() {
+            const container = this.$refs.slider;
+            if (!container) return;
+            const card = container.firstElementChild;
+            const gap = parseInt(window.getComputedStyle(container).gap) || 32;
+            const cardWidth = card.offsetWidth + gap;
+            container.scrollTo({
+                left: cardWidth * this.activeSlide,
+                behavior: 'smooth'
+            });
+        },
+        isActiveDot(dotIndex) {
+            if (this.maxScroll === 0) return dotIndex === 0;
+            const ratio = this.activeSlide / this.maxScroll;
+            const targetDot = Math.round(ratio * (this.dotCount - 1));
+            return dotIndex === targetDot;
+        },
+        goToDot(dotIndex) {
+            if (this.dotCount <= 1) return;
+            const ratio = dotIndex / (this.dotCount - 1);
+            this.activeSlide = Math.round(ratio * this.maxScroll);
+            this.scrollToActive();
+        },
+        init() {
+            let timer = setInterval(() => this.next(), 6000);
+            this.$refs.slider.addEventListener('mouseenter', () => clearInterval(timer));
+            this.$refs.slider.addEventListener('mouseleave', () => timer = setInterval(() => this.next(), 6000));
+            
+            this.$refs.slider.addEventListener('scroll', () => {
+                const container = this.$refs.slider;
+                if (!container || !container.firstElementChild) return;
+                const gap = parseInt(window.getComputedStyle(container).gap) || 32;
+                const cardWidth = container.firstElementChild.offsetWidth + gap;
+                this.activeSlide = Math.round(container.scrollLeft / cardWidth);
+            }, { passive: true });
 
-<section 
-    class="relative py-12 overflow-hidden services-bg-pattern w-full" 
-    id="services-section"
-    aria-labelledby="services-heading"
-    data-animate="fade-up"
->
-    <!-- Decorative Accent Line -->
-    <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/30 to-transparent z-10"></div>
+            window.addEventListener('resize', () => {
+                if (this.activeSlide > this.maxScroll) this.activeSlide = this.maxScroll;
+            });
+        }
+    }">
     
-    <div class="relative w-full z-20">
-        <!-- Header Section -->
-        <div class="text-center max-w-4xl mx-auto mb-12 px-6 lg:px-16" data-animate="fade-up">
-            <!-- Subheading Badge -->
-            <p 
-                class="text-[#D4AF37] tracking-[0.3em] uppercase text-xs mb-3 font-medium"
-                style="font-family: 'Satoshi', sans-serif;"
-                data-animate="fade-up"
-                data-delay="0.1"
-            >
+    {{-- User Requested Background Pattern --}}
+    <div class="absolute inset-0 bg-pattern-services -z-20"></div>
+    <div class="services-glow-overlay absolute inset-0 -z-10"></div>
+    
+    <div class="container mx-auto px-6 lg:px-16 relative z-10">
+        {{-- Header Section --}}
+        <div class="services-header text-center mb-12 md:mb-20 max-w-4xl mx-auto">
+            <span class="services-badge uppercase tracking-[0.3em] text-[#D4AF37] text-xs font-semibold mb-4 block" 
+                  data-animate="fade-up">
                 {{ $subheading }}
-            </p>
-
-            <!-- Main Heading -->
-            <h2
-                id="services-heading"
-                class="font-light text-2xl md:text-4xl lg:text-5xl text-white leading-tight mb-4"
+            </span>
+            <h2 class="services-title font-light text-2xl md:text-3xl lg:text-5xl text-white mb-4" 
                 style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
-                data-animate="fade-up"
-                data-delay="0.2"
-            >
+                data-text="split-lines">
                 {{ $heading }}
             </h2>
-
-            <!-- Primary Divider -->
-            <div 
-                class="w-20 h-px bg-gradient-to-r from-[#D4AF37] to-transparent mx-auto mb-6"
-                data-animate="fade-up"
-                data-delay="0.3"
-            ></div>
-
-            <!-- Description -->
-            <p 
-                class="max-w-4xl mx-auto text-gray-400 text-sm md:text-base leading-relaxed mb-8"
-                style="font-family: 'Satoshi', sans-serif;"
-                data-animate="fade-up"
-                data-delay="0.4"
-            >
+            <div class="services-divider w-20 h-px bg-gradient-to-r from-[#D4AF37] to-transparent mx-auto mb-8" data-animate="fade-up"></div>
+            <p class="services-desc text-gray-400 text-sm md:text-base leading-relaxed" 
+               style="font-family: 'Satoshi', sans-serif;"
+               data-animate="fade-up">
                 {{ $description }}
             </p>
         </div>
 
-        {{-- Services Cards Container --}}
-        <div x-data="servicesCards()" class="services-container">
-            <template x-for="(service, index) in services" :key="index">
-                <div 
-                    class="service-card group"
-                    @mouseenter="setActiveService(index)"
-                    @mouseleave="clearActiveService()"
-                >
-                    <img 
-                        :src="service.image" 
-                        :alt="service.title"
-                        class="service-card__image"
-                        loading="lazy"
-                    />
-                    <div class="service-card__head">
-                        <span x-text="service.title"></span>
-                    </div>
-                    {{-- Detailed Content on Hover --}}
-                    <div class="service-card__content">
-                        <h3 
-                            class="service-card__title"
-                            style="font-family: 'Canela Text Trial', serif;"
-                            x-text="service.title"
-                        ></h3>
-                        <p 
-                            class="service-card__description"
-                            style="font-family: 'Satoshi', sans-serif;"
-                            x-text="service.shortDescription"
-                        ></p>
-                        <div class="service-card__features">
-                            <template x-for="feature in service.keyFeatures" :key="feature">
-                                <div class="service-card__feature">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span x-text="feature" style="font-family: 'Satoshi', sans-serif;"></span>
+        {{-- Carousel Wrapper --}}
+        <div class="relative group">
+            {{-- Navigation Buttons --}}
+            <button @click="prev()" 
+                    class="absolute -left-4 lg:-left-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/10 bg-black/40 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-all duration-300 opacity-0 group-hover:opacity-100 hidden md:flex"
+                    aria-label="Previous service">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            
+            <button @click="next()" 
+                    class="absolute -right-4 lg:-right-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/10 bg-black/40 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-all duration-300 opacity-0 group-hover:opacity-100 hidden md:flex"
+                    aria-label="Next service">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+
+            {{-- Slider Container --}}
+            <div x-ref="slider" 
+                 class="services-slider flex gap-6 lg:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-12 cursor-grab active:cursor-grabbing"
+                 style="scrollbar-width: none; -ms-overflow-style: none;">
+                
+                @foreach($services as $index => $service)
+                    <div class="service-slide min-w-[85vw] md:min-w-[calc(50%-12px)] lg:min-w-[calc(33.333%-22px)] snap-center md:snap-start">
+                        <a href="{{ $service['link'] }}" class="service-card group block relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/5 bg-[#0a0a0a]">
+                            {{-- Image --}}
+                            <img src="{{ $service['image'] }}" alt="{{ $service['title'] }}" 
+                                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                                 loading="lazy">
+
+                            {{-- Numbering --}}
+                            <div class="absolute top-6 left-6 text-2xl md:text-3xl font-light text-white/10 italic" style="font-family: 'Canela Text Trial', serif;">
+                                0{{ $index + 1 }}
+                            </div>
+
+                            {{-- Solid Bottom Gradient --}}
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+
+                            {{-- Content --}}
+                            <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end transition-transform duration-700">
+                                <h3 class="text-xl md:text-2xl text-white mb-2" style="font-family: 'Canela Text Trial', serif;">
+                                    {{ $service['title'] }}
+                                </h3>
+                                <p class="text-xs md:text-sm text-gray-400 font-light leading-relaxed mb-4 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100" style="font-family: 'Satoshi', sans-serif;">
+                                    {{ $service['description'] }}
+                                </p>
+
+                                {{-- Link with Gold Arrow --}}
+                                <div class="flex items-center gap-3 text-[#D4AF37] text-[10px] md:text-sm font-semibold tracking-widest uppercase transition-all duration-700">
+                                    <span>Discover</span>
+                                    <div class="h-px w-6 bg-[#D4AF37] transition-all duration-500 group-hover:w-10"></div>
                                 </div>
-                            </template>
-                        </div>
+                            </div>
+
+                            {{-- Premium Gold Border on Hover --}}
+                            <div class="absolute inset-0 border-2 border-[#D4AF37] opacity-0 group-hover:opacity-20 transition-opacity duration-700 rounded-2xl pointer-events-none"></div>
+                        </a>
                     </div>
-                </div>
-            </template>
+                @endforeach
+            </div>
+
+            {{-- Indicators / Dots --}}
+            <div class="flex justify-center gap-3 mt-4 md:mt-8" x-show="dotCount > 1">
+                <template x-for="i in dotCount" :key="i">
+                    <button @click="goToDot(i-1)"
+                            class="h-1 transition-all duration-500 rounded-full"
+                            :class="isActiveDot(i-1) ? 'w-10 bg-[#D4AF37]' : 'w-2 bg-white/20'"
+                            :aria-label="'Go to service group ' + i">
+                    </button>
+                </template>
+            </div>
         </div>
     </div>
 </section>
 
-<script>
-function servicesCards() {
-    return {
-        activeService: null,
-        
-        services: [
-            {
-                title: 'Luxury Interiors',
-                shortDescription: 'Premium, high-end interiors crafted with bespoke design, exquisite materials, and exceptional detailing.',
-                image: 'https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-7535051_694fc1910371b6.19892859_OG657SCTl.jpg',
-                keyFeatures: [
-                    'Bespoke, design-led approach',
-                    'Premium and imported materials',
-                    'Exceptional craftsmanship',
-                    'High attention to detailing',
-                    'Seamless design-to-execution delivery'
-                ]
-            },
-            {
-                title: 'Residential Interiors',
-                shortDescription: 'Thoughtfully designed homes that reflect your lifestyle, culture, and everyday needs.',
-                image: 'https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg',
-                keyFeatures: [
-                    'Lifestyle-focused design approach',
-                    'Custom layouts for Indian homes',
-                    'High-quality materials and finishes',
-                    'End-to-end turnkey delivery',
-                    'Transparent timelines and execution'
-                ]
-            },
-            {
-                title: 'Commercial Interiors',
-                shortDescription: 'Well-designed commercial environments that support productivity, efficiency, and brand identity.',
-                image: 'https://ik.imagekit.io/AthaConstruction/assets/pexels-ranamatloob567-34823909_694baf216652f9.25031009_PrRZQjkTvi.jpg',
-                keyFeatures: [
-                    'Business-focused design approach',
-                    'Strong technical and MEP coordination',
-                    'Brand-aligned interiors',
-                    'Scalable solutions for growing teams',
-                    'Reliable timelines and execution'
-                ]
-            },
-            {
-                title: 'Modular Kitchens',
-                shortDescription: 'Modern, functional kitchens designed with precision, efficiency, and refined aesthetics.',
-                image: 'https://ik.imagekit.io/AthaConstruction/assets/dining-room_694bad4ae18538.89672987_N_PzMlACP.jpg',
-                keyFeatures: [
-                    'Designed for Indian cooking needs',
-                    'Smart storage and ergonomic layouts',
-                    'Durable materials and premium fittings',
-                    'Clean installation and finishing',
-                    'End-to-end service under one roof'
-                ]
-            },
-            {
-                title: 'Design-Only Services',
-                shortDescription: 'Professional interior design planning that transforms ideas into clear, executable design solutions.',
-                image: 'https://ik.imagekit.io/AthaConstruction/assets/pexels-ansar-muhammad-380085065-23916862_694fb6c25a2ec1.73279304_WM5zT6f4f.jpg',
-                keyFeatures: [
-                    'Clear and execution-ready documentation',
-                    'Design solutions aligned with Indian usage patterns',
-                    'Professional visualization and detailing',
-                    'Flexible support for third-party execution'
-                ]
-            },
-            {
-                title: 'Execution-Only Services',
-                shortDescription: 'Expert interior execution and project management for designs developed by you or a third party.',
-                image: 'https://ik.imagekit.io/AthaConstruction/assets/living-room_694bad683c2ce6.44398210_iMtk3oHGA.jpg',
-                keyFeatures: [
-                    'Accurate implementation of approved designs',
-                    'Skilled workforce and site discipline',
-                    'Strong vendor coordination',
-                    'Quality-driven execution approach',
-                    'Reliable timelines and supervision'
-                ]
-            },
-            {
-                title: 'Budget-Based Interiors',
-                shortDescription: 'Thoughtful interior solutions designed to deliver maximum value within a defined budget.',
-                image: 'https://ik.imagekit.io/AthaConstruction/assets/pexels-heyho-6758775_694fb6266e8f29.85505953_j20NcjqS2.jpg',
-                keyFeatures: [
-                    'Cost-conscious planning',
-                    'Functional and practical design solutions',
-                    'Reliable materials and workmanship',
-                    'Clear scope and transparent execution',
-                    'Balanced design and affordability'
-                ]
-            }
-        ],
-
-        setActiveService(index) {
-            this.activeService = index;
-        },
-
-        clearActiveService() {
-            this.activeService = null;
-        }
-    }
-}
-</script>
-
 <style>
-.services-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 4vmin 0;
-    padding: 0;
-    overflow: hidden;
-    transform: skew(-2deg);
-    gap: 0.5rem;
-}
-
-.service-card {
-    flex: 1;
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 75vmin;
-    max-height: 600px;
-    min-height: 400px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.5rem;
-}
-
-.service-card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-    filter: grayscale(100%);
-    transform: scale(1.05);
-}
-
-.service-card:hover {
-    flex-grow: 8;
-    z-index: 10;
-}
-
-.service-card:hover .service-card__image {
-    filter: grayscale(0%);
-    transform: scale(1);
-}
-
-.service-card__head {
-    color: var(--color-primary);
-    background: rgba(255, 255, 255, 0.95);
-    padding: 0.75rem 1rem;
-    transform: rotate(-90deg);
-    transform-origin: 0% 0%;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    min-width: 100%;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    font-size: 1.125rem;
-    font-weight: 600;
-    white-space: nowrap;
-    z-index: 2;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Canela Text Trial', serif;
-}
-
-.service-card:hover .service-card__head {
-    text-align: center;
-    top: calc(100% - 3em);
-    color: #C9A86C;
-    background: rgba(122, 12, 104, 0.9);
-    backdrop-filter: blur(10px);
-    font-size: 1.75rem;
-    transform: rotate(0deg) skew(2deg);
-    padding: 1rem 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.service-card__content {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(122, 12, 104, 0.85) 0%, rgba(122, 12, 104, 0.95) 100%);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
-}
-
-.service-card:hover .service-card__content {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.service-card__title {
-    color: #C9A86C;
-    font-size: 2rem;
-    font-weight: 300;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
-}
-
-.service-card__description {
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
-.service-card__features {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.service-card__feature {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 0.9375rem;
-}
-
-.service-card__feature svg {
-    flex-shrink: 0;
-    color: #C9A86C;
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .services-container {
-        transform: skew(0deg);
-        flex-direction: column;
-        gap: 1rem;
-        margin: 4vmin 0;
+    /* User Requested Background Pattern */
+    .bg-pattern-services {
+        --s: 60px; /* control the size*/
+        --c1: #181616;
+        --c2: #000000;
+        
+        --_g: #0000 83%, var(--c1) 85% 99%, #0000 101%;
+        background:
+            radial-gradient(27% 29% at right, var(--_g)) calc(var(--s)/ 2) var(--s),
+            radial-gradient(27% 29% at left, var(--_g)) calc(var(--s)/-2) var(--s),
+            radial-gradient(29% 27% at top, var(--_g)) 0 calc(var(--s)/ 2),
+            radial-gradient(29% 27% at bottom, var(--_g)) 0 calc(var(--s)/-2)
+            var(--c2);
+        background-size: calc(2*var(--s)) calc(2*var(--s));
     }
     
+    .services-glow-overlay {
+        background-image: 
+            radial-gradient(circle at 50% -20%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+            radial-gradient(circle at 50% 120%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    /* Hide Scrollbar */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Slider Snap Behavior */
+    .services-slider {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+    }
+
+    /* Card Transition Easing */
     .service-card {
-        height: auto;
-        min-height: auto;
-        width: 100%;
-        flex: none;
-        display: flex;
-        flex-direction: column;
-        background: #fff;
-        border-radius: 0.5rem;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
     }
     
     .service-card:hover {
-        flex-grow: 1;
+        box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15);
     }
-    
-    .service-card__image {
-        width: 100%;
-        height: 50vmin;
-        max-height: 400px;
-        min-height: 250px;
-        flex-shrink: 0;
-    }
-    
-    .service-card__head {
-        transform: rotate(0deg);
-        position: static;
-        background: rgba(122, 12, 104, 0.9);
-        color: #C9A86C;
-        padding: 1rem;
-        font-size: 1.25rem;
-        box-shadow: none;
-        order: 2;
-    }
-    
-    .service-card:hover .service-card__head {
-        transform: rotate(0deg) skew(0deg);
-        position: static;
-        background: rgba(122, 12, 104, 0.95);
-        color: #C9A86C;
-        font-size: 1.5rem;
-    }
-    
-    .service-card__content {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        background: #fff;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        order: 3;
-    }
-    
-    .service-card__title {
-        font-size: 1.5rem;
-        color: #C9A86C;
-        margin-bottom: 0.75rem;
-    }
-    
-    .service-card__description {
-        color: #4b5563;
-        margin-bottom: 1rem;
-    }
-    
-    .service-card__feature {
-        color: #4b5563;
-    }
-    
-    .service-card__feature svg {
-        color: #C9A86C;
-    }
-}
 
-@media (max-width: 640px) {
-    .services-container {
-        margin: 2vmin 0;
-        gap: 0.75rem;
+    /* Mobile Peeking Responsiveness */
+    @media (max-width: 768px) {
+        .services-slider {
+            /* Adjust gap for smaller screens */
+            gap: 1.5rem;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        .service-slide {
+            /* The 85vw width creates the peeking effect */
+            min-width: 85vw;
+        }
     }
-    
-    .service-card {
-        height: auto;
-    }
-    
-    .service-card__image {
-        height: 40vmin;
-        max-height: 350px;
-        min-height: 200px;
-    }
-    
-    .service-card__head {
-        font-size: 1rem;
-        padding: 0.75rem;
-    }
-    
-    .service-card:hover .service-card__head {
-        font-size: 1.25rem;
-    }
-    
-    .service-card__content {
-        padding: 1rem;
-    }
-    
-    .service-card__title {
-        font-size: 1.25rem;
-        margin-bottom: 0.75rem;
-    }
-    
-    .service-card__description {
-        font-size: 0.875rem;
-        margin-bottom: 1rem;
-    }
-    
-    .service-card__feature {
-        font-size: 0.875rem;
-    }
-}
-
-/* Smooth animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.service-card {
-    animation: fadeInUp 0.6s ease-out backwards;
-}
-
-.service-card:nth-child(1) { animation-delay: 0.1s; }
-.service-card:nth-child(2) { animation-delay: 0.2s; }
-.service-card:nth-child(3) { animation-delay: 0.3s; }
-.service-card:nth-child(4) { animation-delay: 0.4s; }
-.service-card:nth-child(5) { animation-delay: 0.5s; }
-.service-card:nth-child(6) { animation-delay: 0.6s; }
-.service-card:nth-child(7) { animation-delay: 0.7s; }
-
-/* Custom Services Background Pattern */
-.services-bg-pattern {
-    --s: 60px; /* control the size*/
-    --c1: #181616;
-    --c2: #000000;
-  
-    --_g: #0000 83%,var(--c1) 85% 99%,#0000 101%;
-    background:
-      radial-gradient(27% 29% at right ,var(--_g)) calc(var(--s)/ 2) var(--s),
-      radial-gradient(27% 29% at left  ,var(--_g)) calc(var(--s)/-2) var(--s),
-      radial-gradient(29% 27% at top   ,var(--_g)) 0 calc(var(--s)/ 2),
-      radial-gradient(29% 27% at bottom,var(--_g)) 0 calc(var(--s)/-2)
-      var(--c2);
-    background-size: calc(2*var(--s)) calc(2*var(--s));
-}
 </style>
-

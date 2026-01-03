@@ -94,6 +94,8 @@
                 class="font-light text-2xl md:text-4xl lg:text-5xl text-theme-primary leading-tight mb-4"
                 style="font-family: 'Canela Text Trial', serif; letter-spacing: -0.02em;"
                 id="expertise-heading"
+                data-animate="fade-up"
+                data-delay="0.2"
             >
                 {{ $heading }}
             </h2>
